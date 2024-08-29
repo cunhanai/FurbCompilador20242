@@ -36,9 +36,6 @@ public class AppUI extends javax.swing.JFrame {
         defineAtalho(buttonNovo, "Novo", KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK);
         defineAtalho(buttonAbrir, "Abrir", KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK);
         defineAtalho(buttonSalvar, "Salvar", KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK);
-        defineAtalho(buttonCopiar, "Copiar", KeyEvent.VK_C, KeyEvent.CTRL_DOWN_MASK);
-        defineAtalho(buttonColar, "Colar", KeyEvent.VK_V, KeyEvent.CTRL_DOWN_MASK);
-        defineAtalho(buttonRecortar, "Recortar", KeyEvent.VK_X, KeyEvent.CTRL_DOWN_MASK);
         defineAtalho(buttonCompilar, "Compilar", KeyEvent.VK_F7, 0);
         defineAtalho(buttonEquipe, "Equipe", KeyEvent.VK_F1, 0);
     }
@@ -194,13 +191,7 @@ public class AppUI extends javax.swing.JFrame {
                 } else if (botao == buttonCompilar) {
                     buttonCompilarActionPerformed(e);
                 } else if (botao == buttonEquipe) {
-                    buttonEquipeActionPerformed(e);
-                } else if (botao == buttonCopiar) {
-                    buttonCopiarActionPerformed(e);
-                } else if (botao == buttonColar) {
-                    buttonColarActionPerformed(e);
-                } else if (botao == buttonRecortar) {
-                    buttonRecortarActionPerformed(e);
+                    buttonEquipeActionPerformed(e);     
                 }
             }
         };
