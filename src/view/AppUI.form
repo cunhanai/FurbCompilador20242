@@ -161,7 +161,7 @@
                   <Component id="buttonCompilar" min="-2" pref="95" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="buttonEquipe" min="-2" pref="95" max="-2" attributes="0"/>
-                  <EmptySpace pref="82" max="32767" attributes="0"/>
+                  <EmptySpace pref="70" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -194,6 +194,7 @@
               <Image iconType="3" name="/view/assets/images/add-document.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Novo [ctrl+n]"/>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="actionCommand" type="java.lang.String" value="buttonNovo"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
