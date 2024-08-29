@@ -244,7 +244,7 @@ public class AppUI extends javax.swing.JFrame {
         buttonAbrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/assets/images/folder.png"))); // NOI18N
         buttonAbrir.setText("Abrir [ctrl+o]");
         buttonAbrir.setActionCommand("buttonAbrir");
-        buttonAbrir.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        buttonAbrir.setBorder(null);
         buttonAbrir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         buttonAbrir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         buttonAbrir.addActionListener(new java.awt.event.ActionListener() {
@@ -338,7 +338,7 @@ public class AppUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonAbrir, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonSalvar)
+                .addComponent(buttonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonCopiar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -349,7 +349,7 @@ public class AppUI extends javax.swing.JFrame {
                 .addComponent(buttonCompilar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -366,8 +366,6 @@ public class AppUI extends javax.swing.JFrame {
                     .addComponent(buttonNovo, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE))
                 .addContainerGap())
         );
-
-        buttonNovo.getAccessibleContext().setAccessibleDescription("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
