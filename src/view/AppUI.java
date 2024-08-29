@@ -206,6 +206,7 @@ public class AppUI extends javax.swing.JFrame {
             .addComponent(barraStatus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
         );
 
+        jSplitPane1.setDividerLocation(300);
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -343,7 +344,6 @@ public class AppUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        buttonNovo.getAccessibleContext().setAccessibleName("Novo [ctrl+n]");
         buttonNovo.getAccessibleContext().setAccessibleDescription("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

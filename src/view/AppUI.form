@@ -76,6 +76,7 @@
     </Container>
     <Container class="javax.swing.JSplitPane" name="jSplitPane1">
       <Properties>
+        <Property name="dividerLocation" type="int" value="300"/>
         <Property name="orientation" type="int" value="0"/>
       </Properties>
 
@@ -193,7 +194,6 @@
             <Property name="actionCommand" type="java.lang.String" value="buttonNovo"/>
           </Properties>
           <AccessibilityProperties>
-            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Novo [ctrl+n]"/>
             <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value=""/>
           </AccessibilityProperties>
           <Events>
