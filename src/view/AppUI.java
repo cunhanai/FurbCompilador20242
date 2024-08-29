@@ -9,20 +9,12 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
-import java.awt.datatransfer.UnsupportedFlavorException;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.JComponent;
 import javax.swing.JFileChooser;
-import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -237,6 +229,7 @@ public class AppUI extends javax.swing.JFrame {
         buttonNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/assets/images/add-document.png"))); // NOI18N
         buttonNovo.setText("Novo [ctrl+n]");
         buttonNovo.setActionCommand("buttonNovo");
+        buttonNovo.setBorder(null);
         buttonNovo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         buttonNovo.setMaximumSize(new java.awt.Dimension(95, 49));
         buttonNovo.setPreferredSize(new java.awt.Dimension(95, 49));
@@ -251,6 +244,7 @@ public class AppUI extends javax.swing.JFrame {
         buttonAbrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/assets/images/folder.png"))); // NOI18N
         buttonAbrir.setText("Abrir [ctrl+o]");
         buttonAbrir.setActionCommand("buttonAbrir");
+        buttonAbrir.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonAbrir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         buttonAbrir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         buttonAbrir.addActionListener(new java.awt.event.ActionListener() {
@@ -263,6 +257,7 @@ public class AppUI extends javax.swing.JFrame {
         buttonSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/assets/images/archive.png"))); // NOI18N
         buttonSalvar.setText("Salvar [ctrl+s]");
         buttonSalvar.setActionCommand("butttonSalvar");
+        buttonSalvar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         buttonSalvar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         buttonSalvar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         buttonSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -354,7 +349,7 @@ public class AppUI extends javax.swing.JFrame {
                 .addComponent(buttonCompilar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -440,7 +435,7 @@ public class AppUI extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
