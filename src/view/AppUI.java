@@ -55,7 +55,6 @@ public class AppUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(910, 600));
-        setPreferredSize(new java.awt.Dimension(910, 600));
 
         jPanel1.setMaximumSize(new java.awt.Dimension(32767, 25));
         jPanel1.setMinimumSize(new java.awt.Dimension(900, 25));
@@ -129,6 +128,11 @@ public class AppUI extends javax.swing.JFrame {
         buttonCompilar.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         buttonCompilar.setText("Compilar");
         buttonCompilar.setActionCommand("buttonCompilar");
+        buttonCompilar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCompilarActionPerformed(evt);
+            }
+        });
 
         buttonEquipe.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         buttonEquipe.setText("Equipe");
@@ -209,6 +213,10 @@ public class AppUI extends javax.swing.JFrame {
     private void buttonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNovoActionPerformed
     novoPrograma();
     }//GEN-LAST:event_buttonNovoActionPerformed
+
+    private void buttonCompilarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCompilarActionPerformed
+        areaMensagens.setText("Compilação de programas ainda não foi implementada");
+    }//GEN-LAST:event_buttonCompilarActionPerformed
 
     /**
      * @param args the command line arguments
