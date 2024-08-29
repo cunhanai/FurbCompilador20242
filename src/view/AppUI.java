@@ -54,10 +54,12 @@ public class AppUI extends javax.swing.JFrame {
 
     private void abrirArquivo() {
         File file = selecionarArquivo();
-        String texto = lerArquivo(file);
-        limparAmbiente();
-        editor.setText(texto);
-        atualizarBarraStatus(file);
+        if (file != null) {
+            String texto = lerArquivo(file);
+            limparAmbiente();
+            editor.setText(texto);
+            atualizarBarraStatus(file);
+        }
     }
 
     private void limparAreaMensagens() {
@@ -98,8 +100,12 @@ public class AppUI extends javax.swing.JFrame {
         }
 
         janela.setFileFilter(new FileNameExtensionFilter(".txt", "txt"));
-        janela.showOpenDialog(null);
-        return janela.getSelectedFile();
+        int result = janela.showSaveDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            return janela.getSelectedFile();
+        } else {
+            return null;
+        }
     }
 
     private String lerArquivo(File file) {
@@ -153,7 +159,7 @@ public class AppUI extends javax.swing.JFrame {
         copiarAreaTransferencia(selecionado);
         editor.setText(editor.getText().replace(selecionado, ""));
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is alwaysZ
