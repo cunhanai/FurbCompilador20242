@@ -150,18 +150,18 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="buttonAbrir" min="-2" pref="95" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="buttonSalvar" min="-2" pref="95" max="-2" attributes="0"/>
+                  <Component id="buttonSalvar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="buttonCopiar" min="-2" pref="95" max="-2" attributes="0"/>
+                  <Component id="buttonCopiar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="buttonColar" min="-2" pref="95" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="buttonRecortar" min="-2" pref="95" max="-2" attributes="0"/>
+                  <Component id="buttonRecortar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="buttonCompilar" min="-2" pref="95" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="buttonEquipe" min="-2" pref="95" max="-2" attributes="0"/>
-                  <EmptySpace pref="102" max="32767" attributes="0"/>
+                  <EmptySpace pref="82" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -190,8 +190,19 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="10" style="1"/>
             </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/view/assets/images/add-document.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Novo [ctrl+n]"/>
             <Property name="actionCommand" type="java.lang.String" value="buttonNovo"/>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[95, 49]"/>
+            </Property>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[95, 49]"/>
+            </Property>
+            <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
           <AccessibilityProperties>
             <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value=""/>
@@ -203,10 +214,15 @@
         <Component class="javax.swing.JButton" name="buttonAbrir">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="10" style="0"/>
+              <Font name="Segoe UI" size="10" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Abrir"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/view/assets/images/folder.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Abrir [ctrl+o]"/>
             <Property name="actionCommand" type="java.lang.String" value="buttonAbrir"/>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAbrirActionPerformed"/>
@@ -215,10 +231,15 @@
         <Component class="javax.swing.JButton" name="buttonSalvar">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="10" style="0"/>
+              <Font name="Segoe UI" size="10" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Salvar"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/view/assets/images/archive.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Salvar [ctrl+s]"/>
             <Property name="actionCommand" type="java.lang.String" value="butttonSalvar"/>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSalvarActionPerformed"/>
@@ -227,10 +248,16 @@
         <Component class="javax.swing.JButton" name="buttonCopiar">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="10" style="0"/>
+              <Font name="Segoe UI" size="10" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Copiar"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/view/assets/images/pages.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Copiar [ctrl+c]"/>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="actionCommand" type="java.lang.String" value="buttonCopiar"/>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCopiarActionPerformed"/>
@@ -239,10 +266,16 @@
         <Component class="javax.swing.JButton" name="buttonColar">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="10" style="0"/>
+              <Font name="Segoe UI" size="10" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Colar"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/view/assets/images/paste-as-text.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Colar [ctrl+v]"/>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="actionCommand" type="java.lang.String" value="buttonColar"/>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonColarActionPerformed"/>
@@ -251,10 +284,15 @@
         <Component class="javax.swing.JButton" name="buttonRecortar">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="10" style="0"/>
+              <Font name="Segoe UI" size="10" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Recortar"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/view/assets/images/scissor.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Recortar [ctrl+x]"/>
             <Property name="actionCommand" type="java.lang.String" value="buttonRecortar"/>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRecortarActionPerformed"/>
@@ -263,10 +301,15 @@
         <Component class="javax.swing.JButton" name="buttonCompilar">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="10" style="0"/>
+              <Font name="Segoe UI" size="10" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Compilar"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/view/assets/images/play.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Compilar [F7]"/>
             <Property name="actionCommand" type="java.lang.String" value="buttonCompilar"/>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCompilarActionPerformed"/>
@@ -275,10 +318,15 @@
         <Component class="javax.swing.JButton" name="buttonEquipe">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="10" style="0"/>
+              <Font name="Segoe UI" size="10" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Equipe"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/view/assets/images/team.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Equipe [F1]"/>
             <Property name="actionCommand" type="java.lang.String" value="buttonEquipe"/>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonEquipeActionPerformed"/>

@@ -234,71 +234,99 @@ public class AppUI extends javax.swing.JFrame {
         jPanel2.setPreferredSize(new java.awt.Dimension(900, 70));
 
         buttonNovo.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        buttonNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/assets/images/add-document.png"))); // NOI18N
         buttonNovo.setText("Novo [ctrl+n]");
         buttonNovo.setActionCommand("buttonNovo");
+        buttonNovo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        buttonNovo.setMaximumSize(new java.awt.Dimension(95, 49));
+        buttonNovo.setPreferredSize(new java.awt.Dimension(95, 49));
+        buttonNovo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         buttonNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonNovoActionPerformed(evt);
             }
         });
 
-        buttonAbrir.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
-        buttonAbrir.setText("Abrir");
+        buttonAbrir.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        buttonAbrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/assets/images/folder.png"))); // NOI18N
+        buttonAbrir.setText("Abrir [ctrl+o]");
         buttonAbrir.setActionCommand("buttonAbrir");
+        buttonAbrir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        buttonAbrir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         buttonAbrir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAbrirActionPerformed(evt);
             }
         });
 
-        buttonSalvar.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
-        buttonSalvar.setText("Salvar");
+        buttonSalvar.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        buttonSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/assets/images/archive.png"))); // NOI18N
+        buttonSalvar.setText("Salvar [ctrl+s]");
         buttonSalvar.setActionCommand("butttonSalvar");
+        buttonSalvar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        buttonSalvar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         buttonSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSalvarActionPerformed(evt);
             }
         });
 
-        buttonCopiar.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
-        buttonCopiar.setText("Copiar");
+        buttonCopiar.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        buttonCopiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/assets/images/pages.png"))); // NOI18N
+        buttonCopiar.setText("Copiar [ctrl+c]");
+        buttonCopiar.setToolTipText("");
         buttonCopiar.setActionCommand("buttonCopiar");
+        buttonCopiar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        buttonCopiar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         buttonCopiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCopiarActionPerformed(evt);
             }
         });
 
-        buttonColar.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
-        buttonColar.setText("Colar");
+        buttonColar.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        buttonColar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/assets/images/paste-as-text.png"))); // NOI18N
+        buttonColar.setText("Colar [ctrl+v]");
+        buttonColar.setToolTipText("");
         buttonColar.setActionCommand("buttonColar");
+        buttonColar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        buttonColar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         buttonColar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonColarActionPerformed(evt);
             }
         });
 
-        buttonRecortar.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
-        buttonRecortar.setText("Recortar");
+        buttonRecortar.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        buttonRecortar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/assets/images/scissor.png"))); // NOI18N
+        buttonRecortar.setText("Recortar [ctrl+x]");
         buttonRecortar.setActionCommand("buttonRecortar");
+        buttonRecortar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        buttonRecortar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         buttonRecortar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRecortarActionPerformed(evt);
             }
         });
 
-        buttonCompilar.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
-        buttonCompilar.setText("Compilar");
+        buttonCompilar.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        buttonCompilar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/assets/images/play.png"))); // NOI18N
+        buttonCompilar.setText("Compilar [F7]");
         buttonCompilar.setActionCommand("buttonCompilar");
+        buttonCompilar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        buttonCompilar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         buttonCompilar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCompilarActionPerformed(evt);
             }
         });
 
-        buttonEquipe.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
-        buttonEquipe.setText("Equipe");
+        buttonEquipe.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        buttonEquipe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/assets/images/team.png"))); // NOI18N
+        buttonEquipe.setText("Equipe [F1]");
         buttonEquipe.setActionCommand("buttonEquipe");
+        buttonEquipe.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        buttonEquipe.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         buttonEquipe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonEquipeActionPerformed(evt);
@@ -315,18 +343,18 @@ public class AppUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonAbrir, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buttonSalvar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonCopiar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buttonCopiar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonColar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonRecortar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buttonRecortar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonCompilar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addContainerGap(82, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
