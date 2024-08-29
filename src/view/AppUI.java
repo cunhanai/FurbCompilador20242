@@ -9,11 +9,13 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import javax.swing.*;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -30,6 +32,15 @@ public class AppUI extends javax.swing.JFrame {
      */
     public AppUI() {
         initComponents();
+        
+        defineAtalho(buttonNovo, "Novo", KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK);
+        defineAtalho(buttonAbrir, "Abrir", KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK);
+        defineAtalho(buttonSalvar, "Salvar", KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK);
+        defineAtalho(buttonCopiar, "Copiar", KeyEvent.VK_C, KeyEvent.CTRL_DOWN_MASK);
+        defineAtalho(buttonColar, "Colar", KeyEvent.VK_V, KeyEvent.CTRL_DOWN_MASK);
+        defineAtalho(buttonRecortar, "Recortar", KeyEvent.VK_X, KeyEvent.CTRL_DOWN_MASK);
+        defineAtalho(buttonCompilar, "Compilar", KeyEvent.VK_F7, 0);
+        defineAtalho(buttonEquipe, "Equipe", KeyEvent.VK_F1, 0);
     }
 
     private void limparAmbiente() {
@@ -162,6 +173,40 @@ public class AppUI extends javax.swing.JFrame {
         String selecionado = editor.getSelectedText();
         copiarAreaTransferencia(selecionado);
         editor.setText(editor.getText().replace(selecionado, ""));
+    }
+    
+     private void defineAtalho(JButton botao, String nomeAcao, int tecla, int modificadores) {
+        // Define o InputMap para o botão
+        InputMap inputMap = botao.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        inputMap.put(KeyStroke.getKeyStroke(tecla, modificadores), nomeAcao);
+
+        // Define a Action para o botão
+        Action acao = new AbstractAction(nomeAcao) {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                // Chama o método do botão correspondente
+                if (botao == buttonNovo) {
+                    buttonNovoActionPerformed(e);
+                } else if (botao == buttonAbrir) {
+                    buttonAbrirActionPerformed(e);
+                } else if (botao == buttonSalvar) {
+                    buttonSalvarActionPerformed(e);
+                } else if (botao == buttonCompilar) {
+                    buttonCompilarActionPerformed(e);
+                } else if (botao == buttonEquipe) {
+                    buttonEquipeActionPerformed(e);
+                } else if (botao == buttonCopiar) {
+                    buttonCopiarActionPerformed(e);
+                } else if (botao == buttonColar) {
+                    buttonColarActionPerformed(e);
+                } else if (botao == buttonRecortar) {
+                    buttonRecortarActionPerformed(e);
+                }
+            }
+        };
+
+        // Adiciona a Action ao botão
+        botao.getActionMap().put(nomeAcao, acao);
     }
 
     /**
