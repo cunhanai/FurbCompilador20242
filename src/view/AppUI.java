@@ -7,6 +7,8 @@ package view;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -18,6 +20,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
         
 public class AppUI extends javax.swing.JFrame {
 
+    private String filePath = "";
+    
     /**
      * Creates new form AppUI
      */
@@ -26,9 +30,10 @@ public class AppUI extends javax.swing.JFrame {
     }
     
     private void limparAmbiente() {
+        limparAreaMensagens();
         editor.setText("");
-        areaMensagens.setText("");
         barraStatus.setText("");
+        filePath = "";
     }
     
     private void mostrarEquipe() {
@@ -41,11 +46,44 @@ public class AppUI extends javax.swing.JFrame {
         String texto = lerArquivo(file);
         limparAmbiente();
         editor.setText(texto);
-        barraStatus.setText(file.getAbsolutePath());
+        atualizarBarraStatus(file);
+    }
+    
+    private void limparAreaMensagens() {
+        areaMensagens.setText("");
+    }
+     
+    private void atualizarBarraStatus(File file) {
+        filePath = file.getAbsolutePath();
+        barraStatus.setText(filePath);
+    }
+    
+    private void salvarArquivo() {
+        if (filePath.equals(""))
+            salvarNovoArquivo();
+        else
+            salvarArquivoExistente();
+        
+        limparAreaMensagens();
+    }
+    
+    private void salvarNovoArquivo() {
+        File file = selecionarArquivo();
+        escreverArquivo(file);
+        atualizarBarraStatus(file);
+    }
+    
+    private void salvarArquivoExistente() {
+        File file = new File(filePath);
+        escreverArquivo(file);
     }
     
     private File selecionarArquivo() {
         JFileChooser janela = new JFileChooser();
+        
+        if (!filePath.equals(""))
+            janela.setCurrentDirectory(new File(filePath));
+
         janela.setFileFilter(new FileNameExtensionFilter(".txt", "txt"));
         janela.showOpenDialog(null);
         return janela.getSelectedFile();
@@ -71,6 +109,17 @@ public class AppUI extends javax.swing.JFrame {
         
         return texto;
     }
+    
+    private void escreverArquivo(File file) {
+        try {
+            FileWriter writer = new FileWriter(file);
+            writer.write(editor.getText());
+            writer.close();
+        }
+        catch (IOException e) {
+            areaMensagens.setText("Não foi possível salvar o arquivo: " + e.getMessage());
+        }
+    } 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -162,6 +211,11 @@ public class AppUI extends javax.swing.JFrame {
         buttonSalvar.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         buttonSalvar.setText("Salvar");
         buttonSalvar.setActionCommand("butttonSalvar");
+        buttonSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSalvarActionPerformed(evt);
+            }
+        });
 
         buttonCopiar.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         buttonCopiar.setText("Copiar");
@@ -270,6 +324,10 @@ public class AppUI extends javax.swing.JFrame {
     private void buttonAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAbrirActionPerformed
         abrirArquivo();
     }//GEN-LAST:event_buttonAbrirActionPerformed
+
+    private void buttonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSalvarActionPerformed
+        salvarArquivo();
+    }//GEN-LAST:event_buttonSalvarActionPerformed
     
     /**
      * @param args the command line arguments
