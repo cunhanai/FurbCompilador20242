@@ -194,6 +194,7 @@
               <Image iconType="3" name="/view/assets/images/add-document.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Novo [ctrl+n]"/>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="actionCommand" type="java.lang.String" value="buttonNovo"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>

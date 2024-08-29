@@ -21,30 +21,37 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @author anaj2
  */
-        
 public class AppUI extends javax.swing.JFrame {
 
     private String filePath = "";
-    
+
     /**
      * Creates new form AppUI
      */
     public AppUI() {
         initComponents();
     }
-    
+
     private void limparAmbiente() {
         limparAreaMensagens();
         editor.setText("");
         barraStatus.setText("");
         filePath = "";
     }
-    
+
+    private void testAreamensagens() {
+        if (!areaMensagens.getText().equals("")) {
+            areaMensagens.append("\n");
+        }
+    }
+
     private void mostrarEquipe() {
-        areaMensagens.setText("Equipe: Ana Julia da Cunha, Gabriel Ribas "
+        testAreamensagens();
+
+        areaMensagens.append("Equipe: Ana Julia da Cunha, Gabriel Ribas "
                 + "Cestari e Thomas Augusto Haskel - 2024");
     }
-    
+
     private void abrirArquivo() {
         File file = selecionarArquivo();
         String texto = lerArquivo(file);
@@ -52,109 +59,101 @@ public class AppUI extends javax.swing.JFrame {
         editor.setText(texto);
         atualizarBarraStatus(file);
     }
-    
+
     private void limparAreaMensagens() {
         areaMensagens.setText("");
     }
-     
+
     private void atualizarBarraStatus(File file) {
         filePath = file.getAbsolutePath();
         barraStatus.setText(filePath);
     }
-    
+
     private void salvarArquivo() {
-        if (filePath.equals(""))
+        if (filePath.equals("")) {
             salvarNovoArquivo();
-        else
+        } else {
             salvarArquivoExistente();
-        
+        }
+
         limparAreaMensagens();
     }
-    
+
     private void salvarNovoArquivo() {
         File file = selecionarArquivo();
         escreverArquivo(file);
         atualizarBarraStatus(file);
     }
-    
+
     private void salvarArquivoExistente() {
         File file = new File(filePath);
         escreverArquivo(file);
     }
-    
+
     private File selecionarArquivo() {
         JFileChooser janela = new JFileChooser();
-        
-        if (!filePath.equals(""))
+
+        if (!filePath.equals("")) {
             janela.setCurrentDirectory(new File(filePath));
+        }
 
         janela.setFileFilter(new FileNameExtensionFilter(".txt", "txt"));
         janela.showOpenDialog(null);
         return janela.getSelectedFile();
     }
-    
+
     private String lerArquivo(File file) {
         String texto = "";
         Scanner scanner = null;
-        
+
         try {
             scanner = new Scanner(file);
-            
-            while (scanner.hasNextLine())
+
+            while (scanner.hasNextLine()) {
                 texto += scanner.nextLine() + "\r\n";
-        }
-        catch (FileNotFoundException e) {
+            }
+        } catch (FileNotFoundException e) {
             areaMensagens.setText("Não foi possível abrir o arquivo: " + e.getMessage());
-        }
-        finally {
-            if (scanner != null)
+        } finally {
+            if (scanner != null) {
                 scanner.close();
+            }
         }
-        
+
         return texto;
     }
-    
+
     private void escreverArquivo(File file) {
         try {
             FileWriter writer = new FileWriter(file);
             writer.write(editor.getText());
             writer.close();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             areaMensagens.setText("Não foi possível salvar o arquivo: " + e.getMessage());
         }
-    } 
-    
-    private void copiarAreaTransferencia() {
-        String texto = editor.getText();
-        copiarAreaTransferencia(texto);
     }
-    
+
+    private void copiarAreaTransferencia() {
+        String selecionado = editor.getSelectedText();
+        copiarAreaTransferencia(selecionado);
+    }
+
     private void copiarAreaTransferencia(String texto) {
         StringSelection selection = new StringSelection(texto);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(selection, null);
     }
-    
+
     private void colarAreaTransferencia() {
-        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-        Transferable transferable = clipboard.getContents(this);
-        
-        try {
-            String text = (String) transferable.getTransferData(DataFlavor.stringFlavor);
-            editor.setText(text);
-        }
-        catch (Exception e) {
-            areaMensagens.setText(e.getMessage());
-        }
+        editor.paste();
     }
-    
+
     private void recortarAreaTransferencia() {
         String selecionado = editor.getSelectedText();
         copiarAreaTransferencia(selecionado);
         editor.setText(editor.getText().replace(selecionado, ""));
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is alwaysZ
@@ -228,6 +227,7 @@ public class AppUI extends javax.swing.JFrame {
         buttonNovo.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
         buttonNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/assets/images/add-document.png"))); // NOI18N
         buttonNovo.setText("Novo [ctrl+n]");
+        buttonNovo.setToolTipText("");
         buttonNovo.setActionCommand("buttonNovo");
         buttonNovo.setBorder(null);
         buttonNovo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -349,7 +349,7 @@ public class AppUI extends javax.swing.JFrame {
                 .addComponent(buttonCompilar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -401,7 +401,9 @@ public class AppUI extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonNovoActionPerformed
 
     private void buttonCompilarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCompilarActionPerformed
-        areaMensagens.setText("Compilação de programas ainda não foi implementada");
+        testAreamensagens();
+
+        areaMensagens.append("Compilação de programas ainda não foi implementada");
     }//GEN-LAST:event_buttonCompilarActionPerformed
 
     private void buttonAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAbrirActionPerformed
@@ -423,7 +425,7 @@ public class AppUI extends javax.swing.JFrame {
     private void buttonRecortarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRecortarActionPerformed
         recortarAreaTransferencia();
     }//GEN-LAST:event_buttonRecortarActionPerformed
-    
+
     /**
      * @param args the command line arguments
      */
