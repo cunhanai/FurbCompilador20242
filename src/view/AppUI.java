@@ -4,6 +4,13 @@
  */
 package view;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.Scanner;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 /**
  *
  * @author anaj2
@@ -18,7 +25,7 @@ public class AppUI extends javax.swing.JFrame {
         initComponents();
     }
     
-    private void novoPrograma() {
+    private void limparAmbiente() {
         editor.setText("");
         areaMensagens.setText("");
         barraStatus.setText("");
@@ -27,6 +34,42 @@ public class AppUI extends javax.swing.JFrame {
     private void mostrarEquipe() {
         areaMensagens.setText("Equipe: Ana Julia da Cunha, Gabriel Ribas "
                 + "Cestari e Thomas Augusto Haskel - 2024");
+    }
+    
+    private void abrirArquivo() {
+        File file = selecionarArquivo();
+        String texto = lerArquivo(file);
+        limparAmbiente();
+        editor.setText(texto);
+        barraStatus.setText(file.getAbsolutePath());
+    }
+    
+    private File selecionarArquivo() {
+        JFileChooser janela = new JFileChooser();
+        janela.setFileFilter(new FileNameExtensionFilter(".txt", "txt"));
+        janela.showOpenDialog(null);
+        return janela.getSelectedFile();
+    }
+    
+    private String lerArquivo(File file) {
+        String texto = "";
+        Scanner scanner = null;
+        
+        try {
+            scanner = new Scanner(file);
+            
+            while (scanner.hasNextLine())
+                texto += scanner.nextLine() + "\r\n";
+        }
+        catch (FileNotFoundException e) {
+            areaMensagens.setText("Não foi possível abrir o arquivo: " + e.getMessage());
+        }
+        finally {
+            if (scanner != null)
+                scanner.close();
+        }
+        
+        return texto;
     }
 
     /**
@@ -110,6 +153,11 @@ public class AppUI extends javax.swing.JFrame {
         buttonAbrir.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         buttonAbrir.setText("Abrir");
         buttonAbrir.setActionCommand("buttonAbrir");
+        buttonAbrir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAbrirActionPerformed(evt);
+            }
+        });
 
         buttonSalvar.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         buttonSalvar.setText("Salvar");
@@ -212,13 +260,17 @@ public class AppUI extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonEquipeActionPerformed
 
     private void buttonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNovoActionPerformed
-    novoPrograma();
+    limparAmbiente();
     }//GEN-LAST:event_buttonNovoActionPerformed
 
     private void buttonCompilarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCompilarActionPerformed
         areaMensagens.setText("Compilação de programas ainda não foi implementada");
     }//GEN-LAST:event_buttonCompilarActionPerformed
 
+    private void buttonAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAbrirActionPerformed
+        abrirArquivo();
+    }//GEN-LAST:event_buttonAbrirActionPerformed
+    
     /**
      * @param args the command line arguments
      */
