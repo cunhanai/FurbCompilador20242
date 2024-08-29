@@ -82,9 +82,13 @@ public class AppUI extends javax.swing.JFrame {
     }
 
     private void salvarNovoArquivo() {
-        File file = selecionarArquivo();
-        escreverArquivo(file);
-        atualizarBarraStatus(file);
+        File fileSelecionado = selecionarArquivo();
+        
+        if (fileSelecionado != null) {
+            File file = new File(fileSelecionado.getPath() + ".txt");
+            escreverArquivo(file);
+            atualizarBarraStatus(file);
+        }
     }
 
     private void salvarArquivoExistente() {
