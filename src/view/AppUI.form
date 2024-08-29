@@ -145,22 +145,22 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="buttonNovo" min="-2" pref="75" max="-2" attributes="0"/>
+                  <Component id="buttonNovo" min="-2" pref="95" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="buttonAbrir" min="-2" pref="75" max="-2" attributes="0"/>
+                  <Component id="buttonAbrir" min="-2" pref="95" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="buttonSalvar" min="-2" pref="75" max="-2" attributes="0"/>
+                  <Component id="buttonSalvar" min="-2" pref="95" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="buttonCopiar" min="-2" pref="75" max="-2" attributes="0"/>
+                  <Component id="buttonCopiar" min="-2" pref="95" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="buttonColar" min="-2" pref="75" max="-2" attributes="0"/>
+                  <Component id="buttonColar" min="-2" pref="95" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="buttonRecortar" min="-2" pref="75" max="-2" attributes="0"/>
+                  <Component id="buttonRecortar" min="-2" pref="95" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="buttonCompilar" min="-2" pref="75" max="-2" attributes="0"/>
+                  <Component id="buttonCompilar" min="-2" pref="95" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="buttonEquipe" min="-2" pref="75" max="-2" attributes="0"/>
-                  <EmptySpace pref="262" max="32767" attributes="0"/>
+                  <Component id="buttonEquipe" min="-2" pref="95" max="-2" attributes="0"/>
+                  <EmptySpace pref="102" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -187,11 +187,15 @@
         <Component class="javax.swing.JButton" name="buttonNovo">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="10" style="0"/>
+              <Font name="Segoe UI" size="10" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Novo"/>
+            <Property name="text" type="java.lang.String" value="Novo [ctrl+n]"/>
             <Property name="actionCommand" type="java.lang.String" value="buttonNovo"/>
           </Properties>
+          <AccessibilityProperties>
+            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Novo [ctrl+n]"/>
+            <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value=""/>
+          </AccessibilityProperties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonNovoActionPerformed"/>
           </Events>
@@ -228,6 +232,9 @@
             <Property name="text" type="java.lang.String" value="Copiar"/>
             <Property name="actionCommand" type="java.lang.String" value="buttonCopiar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCopiarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="buttonColar">
           <Properties>
@@ -237,6 +244,9 @@
             <Property name="text" type="java.lang.String" value="Colar"/>
             <Property name="actionCommand" type="java.lang.String" value="buttonColar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonColarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="buttonRecortar">
           <Properties>
@@ -246,6 +256,9 @@
             <Property name="text" type="java.lang.String" value="Recortar"/>
             <Property name="actionCommand" type="java.lang.String" value="buttonRecortar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRecortarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="buttonCompilar">
           <Properties>

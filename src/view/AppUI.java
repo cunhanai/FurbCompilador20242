@@ -4,13 +4,25 @@
  */
 package view;
 
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
+import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -120,6 +132,36 @@ public class AppUI extends javax.swing.JFrame {
             areaMensagens.setText("Não foi possível salvar o arquivo: " + e.getMessage());
         }
     } 
+    
+    private void copiarAreaTransferencia() {
+        String texto = editor.getText();
+        copiarAreaTransferencia(texto);
+    }
+    
+    private void copiarAreaTransferencia(String texto) {
+        StringSelection selection = new StringSelection(texto);
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        clipboard.setContents(selection, null);
+    }
+    
+    private void colarAreaTransferencia() {
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        Transferable transferable = clipboard.getContents(this);
+        
+        try {
+            String text = (String) transferable.getTransferData(DataFlavor.stringFlavor);
+            editor.setText(text);
+        }
+        catch (Exception e) {
+            areaMensagens.setText(e.getMessage());
+        }
+    }
+    
+    private void recortarAreaTransferencia() {
+        String selecionado = editor.getSelectedText();
+        copiarAreaTransferencia(selecionado);
+        editor.setText(editor.getText().replace(selecionado, ""));
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -190,8 +232,8 @@ public class AppUI extends javax.swing.JFrame {
         jPanel2.setMinimumSize(new java.awt.Dimension(900, 70));
         jPanel2.setPreferredSize(new java.awt.Dimension(900, 70));
 
-        buttonNovo.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
-        buttonNovo.setText("Novo");
+        buttonNovo.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        buttonNovo.setText("Novo [ctrl+n]");
         buttonNovo.setActionCommand("buttonNovo");
         buttonNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -220,14 +262,29 @@ public class AppUI extends javax.swing.JFrame {
         buttonCopiar.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         buttonCopiar.setText("Copiar");
         buttonCopiar.setActionCommand("buttonCopiar");
+        buttonCopiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCopiarActionPerformed(evt);
+            }
+        });
 
         buttonColar.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         buttonColar.setText("Colar");
         buttonColar.setActionCommand("buttonColar");
+        buttonColar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonColarActionPerformed(evt);
+            }
+        });
 
         buttonRecortar.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         buttonRecortar.setText("Recortar");
         buttonRecortar.setActionCommand("buttonRecortar");
+        buttonRecortar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRecortarActionPerformed(evt);
+            }
+        });
 
         buttonCompilar.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         buttonCompilar.setText("Compilar");
@@ -253,22 +310,22 @@ public class AppUI extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(buttonNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buttonNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonAbrir, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buttonAbrir, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buttonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonCopiar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buttonCopiar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonColar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buttonColar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonRecortar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buttonRecortar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonCompilar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buttonCompilar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(262, Short.MAX_VALUE))
+                .addComponent(buttonEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(102, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -285,6 +342,9 @@ public class AppUI extends javax.swing.JFrame {
                     .addComponent(buttonNovo, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE))
                 .addContainerGap())
         );
+
+        buttonNovo.getAccessibleContext().setAccessibleName("Novo [ctrl+n]");
+        buttonNovo.getAccessibleContext().setAccessibleDescription("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -314,7 +374,7 @@ public class AppUI extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonEquipeActionPerformed
 
     private void buttonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNovoActionPerformed
-    limparAmbiente();
+        limparAmbiente();
     }//GEN-LAST:event_buttonNovoActionPerformed
 
     private void buttonCompilarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCompilarActionPerformed
@@ -328,6 +388,18 @@ public class AppUI extends javax.swing.JFrame {
     private void buttonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSalvarActionPerformed
         salvarArquivo();
     }//GEN-LAST:event_buttonSalvarActionPerformed
+
+    private void buttonCopiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCopiarActionPerformed
+        copiarAreaTransferencia();
+    }//GEN-LAST:event_buttonCopiarActionPerformed
+
+    private void buttonColarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonColarActionPerformed
+        colarAreaTransferencia();
+    }//GEN-LAST:event_buttonColarActionPerformed
+
+    private void buttonRecortarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRecortarActionPerformed
+        recortarAreaTransferencia();
+    }//GEN-LAST:event_buttonRecortarActionPerformed
     
     /**
      * @param args the command line arguments
