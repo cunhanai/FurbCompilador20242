@@ -248,6 +248,7 @@ public class AppUI extends javax.swing.JFrame {
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollPane1.setViewportView(editor);
 
         editor.setColumns(20);
         editor.setRows(5);
@@ -258,6 +259,7 @@ public class AppUI extends javax.swing.JFrame {
 
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollPane2.setWheelScrollingEnabled(false);
 
         areaMensagens.setEditable(false);
         areaMensagens.setColumns(20);
@@ -275,7 +277,6 @@ public class AppUI extends javax.swing.JFrame {
         buttonNovo.setText("Novo [ctrl+n]");
         buttonNovo.setToolTipText("");
         buttonNovo.setActionCommand("buttonNovo");
-        buttonNovo.setBorder(null);
         buttonNovo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         buttonNovo.setMaximumSize(new java.awt.Dimension(95, 49));
         buttonNovo.setPreferredSize(new java.awt.Dimension(95, 49));
@@ -290,7 +291,6 @@ public class AppUI extends javax.swing.JFrame {
         buttonAbrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/assets/images/folder.png"))); // NOI18N
         buttonAbrir.setText("Abrir [ctrl+o]");
         buttonAbrir.setActionCommand("buttonAbrir");
-        buttonAbrir.setBorder(null);
         buttonAbrir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         buttonAbrir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         buttonAbrir.addActionListener(new java.awt.event.ActionListener() {
@@ -303,7 +303,6 @@ public class AppUI extends javax.swing.JFrame {
         buttonSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/assets/images/archive.png"))); // NOI18N
         buttonSalvar.setText("Salvar [ctrl+s]");
         buttonSalvar.setActionCommand("butttonSalvar");
-        buttonSalvar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         buttonSalvar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         buttonSalvar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         buttonSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -380,22 +379,22 @@ public class AppUI extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(buttonNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonAbrir, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonCopiar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonColar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonRecortar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonCompilar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addComponent(buttonNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(buttonAbrir, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(buttonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(buttonCopiar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(buttonColar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(buttonRecortar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(buttonCompilar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(buttonEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -417,7 +416,7 @@ public class AppUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 910, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
