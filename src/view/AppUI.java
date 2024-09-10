@@ -18,6 +18,9 @@ import java.util.Scanner;
 import javax.swing.*;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import model.lexico.LexicalError;
+import model.lexico.Lexico;
+import model.lexico.Token;
 
 /**
  *
@@ -446,7 +449,33 @@ public class AppUI extends javax.swing.JFrame {
     private void buttonCompilarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCompilarActionPerformed
         testAreamensagens();
 
-        areaMensagens.append("Compilação de programas ainda não foi implementada");
+        Lexico lexico = new Lexico();
+        lexico.setInput(null); /* texto do editor de textos */
+        try {
+            Token t = null;
+            while ( (t = lexico.nextToken()) != null ) {
+              System.out.println(t.getLexeme()); 
+
+              // só escreve o lexema, necessário escrever t.getId, t.getPosition()
+
+              // t.getId () - retorna o identificador da classe. Olhar Constants.java e adaptar, pois 
+             // deve ser apresentada a classe por extenso
+             // t.getPosition () - retorna a posição inicial do lexema no editor, necessário adaptar 
+             // para mostrar a linha	
+
+              // esse código apresenta os tokens enquanto não ocorrer erro
+              // no entanto, os tokens devem ser apresentados SÓ se não ocorrer erro, necessário adaptar 
+             // para atender o que foi solicitado		   
+            }
+        }
+        catch ( LexicalError e ) {  // tratamento de erros
+            System.out.println(e.getMessage() + " em " + e.getPosition());
+
+            // e.getMessage() - retorna a mensagem de erro de SCANNER_ERRO (olhar ScannerConstants.java 
+            // e adaptar conforme o enunciado da parte 2)
+            // e.getPosition() - retorna a posição inicial do erro, tem que adaptar para mostrar a 
+            // linha  
+         } 
     }//GEN-LAST:event_buttonCompilarActionPerformed
 
     private void buttonAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAbrirActionPerformed
