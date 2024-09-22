@@ -6,14 +6,13 @@ package view;
 
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
-import java.awt.datatransfer.Transferable;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.*;
 import javax.swing.JFileChooser;
@@ -35,7 +34,7 @@ public class AppUI extends javax.swing.JFrame {
      */
     public AppUI() {
         initComponents();
-        
+
         defineAtalho(buttonNovo, "Novo", KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK);
         defineAtalho(buttonAbrir, "Abrir", KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK);
         defineAtalho(buttonSalvar, "Salvar", KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK);
@@ -94,7 +93,7 @@ public class AppUI extends javax.swing.JFrame {
 
     private void salvarNovoArquivo() {
         File fileSelecionado = selecionarArquivo();
-        
+
         if (fileSelecionado != null) {
             File file = new File(fileSelecionado.getPath() + ".txt");
             escreverArquivo(file);
@@ -174,8 +173,8 @@ public class AppUI extends javax.swing.JFrame {
         copiarAreaTransferencia(selecionado);
         editor.setText(editor.getText().replace(selecionado, ""));
     }
-    
-     private void defineAtalho(JButton botao, String nomeAcao, int tecla, int modificadores) {
+
+    private void defineAtalho(JButton botao, String nomeAcao, int tecla, int modificadores) {
         // Define o InputMap para o botão
         InputMap inputMap = botao.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap.put(KeyStroke.getKeyStroke(tecla, modificadores), nomeAcao);
@@ -194,7 +193,7 @@ public class AppUI extends javax.swing.JFrame {
                 } else if (botao == buttonCompilar) {
                     buttonCompilarActionPerformed(e);
                 } else if (botao == buttonEquipe) {
-                    buttonEquipeActionPerformed(e);     
+                    buttonEquipeActionPerformed(e);
                 }
             }
         };
@@ -450,32 +449,78 @@ public class AppUI extends javax.swing.JFrame {
         testAreamensagens();
 
         Lexico lexico = new Lexico();
-        lexico.setInput(null); /* texto do editor de textos */
+        lexico.setInput(editor.getText()); // texto do editor de textos
+        final int tamPos = 8;
+        final int tamClasse = 20;
+
+        int linha = 1;
+        int i = 0;
+        String[] linhas = editor.getText().split("\r\n|\n|\r");
+
+        String tokens = String.format("%-" + tamPos + "s", "linha") + String.format("%-" + tamClasse + "s", "classe") + "lexema";
+
         try {
             Token t = null;
-            while ( (t = lexico.nextToken()) != null ) {
-              System.out.println(t.getLexeme()); 
 
-              // só escreve o lexema, necessário escrever t.getId, t.getPosition()
+            while ((t = lexico.nextToken()) != null) {
+                
+                while (t.getPosition() > linhas[linha - 1].length() + i) {
+                    i += linhas[linha - 1].length() + 1;
+                    linha++;
+                }
 
-              // t.getId () - retorna o identificador da classe. Olhar Constants.java e adaptar, pois 
-             // deve ser apresentada a classe por extenso
-             // t.getPosition () - retorna a posição inicial do lexema no editor, necessário adaptar 
-             // para mostrar a linha	
+                String classe = "";
+                switch (t.getId()) {
+                    case 2:
+                        classe = "palavra reservada";
+                        break;
+                    case 16:
+                        classe = "identificador";
+                        break;
+                    case 17:
+                        classe = "constante_int";
+                        break;
+                    case 18:
+                        classe = "constante_float";
+                        break;
+                    case 19:
+                        classe = "constante_string";
+                        break;
+                    default:
+                        if (t.getId() >= 3 && t.getId() <= 15) {
+                            classe = "palavra reservada";
+                        } else if (t.getId() <= 35) {
+                            classe = "símbolo especial";
+                        }
+                        break;
+                }
 
-              // esse código apresenta os tokens enquanto não ocorrer erro
-              // no entanto, os tokens devem ser apresentados SÓ se não ocorrer erro, necessário adaptar 
-             // para atender o que foi solicitado		   
+                String tokenPos = String.format("%-" + tamPos + "s", linha);
+                String tokenClasse = String.format("%-" + tamClasse + "s", classe);
+                String tokenLexema = t.getLexeme();
+                tokens += "\n" + tokenPos + tokenClasse + tokenLexema;
+
+                //System.out.println(t.getLexeme());
+                // só escreve o lexema, necessário escrever t.getId, t.getPosition()
+                // t.getId () - retorna o identificador da classe. Olhar Constants.java e adaptar, pois 
+                // deve ser apresentada a classe por extenso
+                // t.getPosition () - retorna a posição inicial do lexema no editor, necessário adaptar 
+                // para mostrar a linha	
+                // esse código apresenta os tokens enquanto não ocorrer erro
+                // no entanto, os tokens devem ser apresentados SÓ se não ocorrer erro, necessário adaptar 
+                // para atender o que foi solicitado		
             }
-        }
-        catch ( LexicalError e ) {  // tratamento de erros
+        } catch (LexicalError e) {  // tratamento de erros
             System.out.println(e.getMessage() + " em " + e.getPosition());
 
             // e.getMessage() - retorna a mensagem de erro de SCANNER_ERRO (olhar ScannerConstants.java 
             // e adaptar conforme o enunciado da parte 2)
             // e.getPosition() - retorna a posição inicial do erro, tem que adaptar para mostrar a 
             // linha  
-         } 
+        }
+
+        tokens += "\n\n" + String.format("%-" + tamPos + "s", "") + "programa compilado com sucesso";
+        areaMensagens.setText(tokens);
     }//GEN-LAST:event_buttonCompilarActionPerformed
 
     private void buttonAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAbrirActionPerformed

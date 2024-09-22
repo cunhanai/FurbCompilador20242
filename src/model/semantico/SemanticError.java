@@ -1,4 +1,6 @@
-package model.lexico;
+package model.semantico;
+
+import model.lexico.AnalysisError;
 
 public class SemanticError extends AnalysisError
 {
