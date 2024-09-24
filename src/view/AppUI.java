@@ -450,8 +450,8 @@ public class AppUI extends javax.swing.JFrame {
 
         Lexico lexico = new Lexico();
         lexico.setInput(editor.getText()); // texto do editor de textos
-        final int tamPos = 8;
-        final int tamClasse = 20;
+        final int tamPos = 16;
+        final int tamClasse = 40;
 
         int linha = 1;
         int i = 0;
