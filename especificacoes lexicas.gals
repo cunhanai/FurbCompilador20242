@@ -5,7 +5,7 @@ Language = Java
 ScannerName = Lexico
 ScannerCaseSensitive = true
 ScannerTable = Compact
-Input = String
+Input = Stream
 #RegularDefinitions
 min: [a-z]
 mai: [A-Z]
@@ -14,6 +14,8 @@ dig: [0-9]
 prefixo: (i|f|b|s)_
 umnove: [1-9]
 #Tokens
+// equipe: Ana Júlia da Cunha, Gabriel Ribas Cestari, Thomas Augusto Haskel
+
 reserva: {min} {letra}*
 
 main = reserva: "main"
@@ -46,7 +48,7 @@ constring:  \" ([^\n\"%] | % x)* \"
 "!="
 "<"
 ">"
-"+"
+"+" 
 "-"
 "*"
 "/"
