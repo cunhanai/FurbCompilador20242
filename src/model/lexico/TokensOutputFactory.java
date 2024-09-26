@@ -28,7 +28,7 @@ public class TokensOutputFactory {
         for (String[] token : tokens)
             output += "\n" + formatarLinhaOutput(token);
         
-        output += "\n\n" + " ".repeat(lenTabLinha + margemTab + 1)  +"Programa compilado com sucesso";
+        output += "\n\n" + " ".repeat(lenTabLinha + margemTab + 1)  +"programa compilado com sucesso";
         
         return output;
     }

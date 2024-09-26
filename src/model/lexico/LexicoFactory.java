@@ -29,7 +29,7 @@ public class LexicoFactory {
 
         int linha = 1;
         int posJaLidas = 0;
-        String[] linhas = editorText.split("\r\n|\n|\r");
+        String[] linhas = editorText.split("\n");
 
         Token token = null;
         try {
@@ -42,7 +42,7 @@ public class LexicoFactory {
                 }
 
                 String classe = getClasse(token.getId());
-                if (classe == null){
+                if (classe == null) {
                     throw new LexicalError("palavra reservada inválida", token.getPosition());
                 }
                 tokenFactory.adicionarToken(linha, classe, token.getLexeme());
@@ -60,16 +60,25 @@ public class LexicoFactory {
 
         } catch (LexicalError e) {  // tratamento de erros
 
+            while (e.getPosition() > linhas[linha - 1].length() + posJaLidas) {
+                posJaLidas += linhas[linha - 1].length() + 1;
+                linha++;
+            }
+
             String linhaErro = "linha " + linha + ": ";
-                       
+
+            if (e.getMessage().contains("constante_string") || e.getMessage().contains("comentário de bloco")) {
+                return linhaErro + e.getMessage();
+            }
+
             String lexemaErro = editorText.substring(e.getPosition());
             Pattern fimDeLexema = Pattern.compile("\r\n|\n|\r");
             Matcher procura = fimDeLexema.matcher(lexemaErro);
-            
+
             if (procura.find()) {
                 lexemaErro = lexemaErro.substring(0, procura.start());
             }
-                  
+
             return linhaErro + lexemaErro + " " + e.getMessage();
 
             // e.getMessage() - retorna a mensagem de erro de SCANNER_ERRO (olhar ScannerConstants.java 

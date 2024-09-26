@@ -96,7 +96,12 @@ public class AppUI extends javax.swing.JFrame {
         File fileSelecionado = selecionarArquivo();
 
         if (fileSelecionado != null) {
-            File file = new File(fileSelecionado.getPath() + ".txt");
+            File file = null;
+            if (fileSelecionado.getPath().endsWith(".txt")) {
+                file = new File(fileSelecionado.getPath());
+            } else {
+                file = new File(fileSelecionado.getPath() + ".txt");
+            }
             escreverArquivo(file);
             atualizarBarraStatus(file);
         }
@@ -450,7 +455,7 @@ public class AppUI extends javax.swing.JFrame {
 
     private void buttonCompilarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCompilarActionPerformed
         testAreamensagens();
-        
+
         LexicoFactory lexico = new LexicoFactory();
         String tokens = lexico.RealizarAnaliseLexica(editor.getText());
         areaMensagens.setText(tokens);
