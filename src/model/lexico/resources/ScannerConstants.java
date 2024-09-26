@@ -1061,10 +1061,10 @@ public interface ScannerConstants
 
     String[] SCANNER_ERROR =
     {
-        "Caractere não esperado",
+        "símbolo inválido",
         "",
         "",
-        "Erro identificando constring",
+        "constante_string inválida",
         "Erro identificando \"&&\"",
         "",
         "",
@@ -1084,21 +1084,21 @@ public interface ScannerConstants
         "Erro identificando \"||\"",
         "",
         "",
-        "Erro identificando constring",
+        "constante_string inválida",
         "",
         "Erro identificando confloat",
         "",
-        "Erro identificando <ignorar>",
-        "Erro identificando identificador",
+        "comentário de bloco inválido ou não finalizado",
+        "identificador inválido",
         "",
         "",
-        "Erro identificando <ignorar>",
+        "comentário de bloco inválido ou não finalizado",
         "",
         "",
         "Erro identificando confloat",
-        "Erro identificando <ignorar>",
+        "comentário de bloco inválido ou não finalizado",
         "",
-        "Erro identificando <ignorar>",
+        "comentário de bloco inválido ou não finalizado",
         ""
     };
 
