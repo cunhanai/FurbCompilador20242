@@ -1,6 +1,6 @@
-package model.sintatico;
+package model.erro;
 
-import model.lexico.AnalysisError;
+import model.lexico.resources.AnalysisError;
 
 public class SyntaticError extends AnalysisError
 {

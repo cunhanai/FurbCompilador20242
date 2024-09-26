@@ -17,9 +17,10 @@ import java.util.Scanner;
 import javax.swing.*;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import model.lexico.LexicalError;
-import model.lexico.Lexico;
-import model.lexico.Token;
+import model.lexico.resources.LexicalError;
+import model.lexico.resources.Lexico;
+import model.lexico.resources.Token;
+import model.lexico.LexicoFactory;
 
 /**
  *
@@ -253,6 +254,7 @@ public class AppUI extends javax.swing.JFrame {
         jScrollPane1.setViewportView(editor);
 
         editor.setColumns(20);
+        editor.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
         editor.setRows(5);
         editor.setBorder(new NumberedBorder());
         jScrollPane1.setViewportView(editor);
@@ -265,6 +267,7 @@ public class AppUI extends javax.swing.JFrame {
 
         areaMensagens.setEditable(false);
         areaMensagens.setColumns(20);
+        areaMensagens.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
         areaMensagens.setRows(5);
         areaMensagens.setDragEnabled(true);
         jScrollPane2.setViewportView(areaMensagens);
@@ -447,79 +450,9 @@ public class AppUI extends javax.swing.JFrame {
 
     private void buttonCompilarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCompilarActionPerformed
         testAreamensagens();
-
-        Lexico lexico = new Lexico();
-        lexico.setInput(editor.getText()); // texto do editor de textos
-        final int tamPos = 16;
-        final int tamClasse = 40;
-
-        int linha = 1;
-        int i = 0;
-        String[] linhas = editor.getText().split("\r\n|\n|\r");
-
-        String tokens = String.format("%-" + tamPos + "s", "linha") + String.format("%-" + tamClasse + "s", "classe") + "lexema";
-
-        try {
-            Token t = null;
-
-            while ((t = lexico.nextToken()) != null) {
-                
-                while (t.getPosition() > linhas[linha - 1].length() + i) {
-                    i += linhas[linha - 1].length() + 1;
-                    linha++;
-                }
-
-                String classe = "";
-                switch (t.getId()) {
-                    case 2:
-                        classe = "palavra reservada";
-                        break;
-                    case 16:
-                        classe = "identificador";
-                        break;
-                    case 17:
-                        classe = "constante_int";
-                        break;
-                    case 18:
-                        classe = "constante_float";
-                        break;
-                    case 19:
-                        classe = "constante_string";
-                        break;
-                    default:
-                        if (t.getId() >= 3 && t.getId() <= 15) {
-                            classe = "palavra reservada";
-                        } else if (t.getId() <= 35) {
-                            classe = "símbolo especial";
-                        }
-                        break;
-                }
-
-                String tokenPos = String.format("%-" + tamPos + "s", linha);
-                String tokenClasse = String.format("%-" + tamClasse + "s", classe);
-                String tokenLexema = t.getLexeme();
-                tokens += "\n" + tokenPos + tokenClasse + tokenLexema;
-
-                //System.out.println(t.getLexeme());
-                // só escreve o lexema, necessário escrever t.getId, t.getPosition()
-                // t.getId () - retorna o identificador da classe. Olhar Constants.java e adaptar, pois 
-                // deve ser apresentada a classe por extenso
-                // t.getPosition () - retorna a posição inicial do lexema no editor, necessário adaptar 
-                // para mostrar a linha	
-                // esse código apresenta os tokens enquanto não ocorrer erro
-                // no entanto, os tokens devem ser apresentados SÓ se não ocorrer erro, necessário adaptar 
-                // para atender o que foi solicitado		
-            }
-        } catch (LexicalError e) {  // tratamento de erros
-            System.out.println(e.getMessage() + " em " + e.getPosition());
-
-            // e.getMessage() - retorna a mensagem de erro de SCANNER_ERRO (olhar ScannerConstants.java 
-            // e adaptar conforme o enunciado da parte 2)
-            // e.getPosition() - retorna a posição inicial do erro, tem que adaptar para mostrar a 
-            // linha  
-        }
-
-        tokens += "\n\n" + String.format("%-" + tamPos + "s", "") + "programa compilado com sucesso";
+        
+        LexicoFactory lexico = new LexicoFactory();
+        String tokens = lexico.RealizarAnaliseLexica(editor.getText());
         areaMensagens.setText(tokens);
     }//GEN-LAST:event_buttonCompilarActionPerformed
 

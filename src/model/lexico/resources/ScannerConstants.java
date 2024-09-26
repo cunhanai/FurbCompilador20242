@@ -1,4 +1,4 @@
-package model.lexico;
+package model.lexico.resources;
 
 public interface ScannerConstants
 {
