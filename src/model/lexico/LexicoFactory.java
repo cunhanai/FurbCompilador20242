@@ -32,6 +32,7 @@ public class LexicoFactory {
         String[] linhas = editorText.split("\n");
 
         Token token = null;
+        
         try {
 
             while ((token = lexico.nextToken()) != null) {
@@ -42,23 +43,15 @@ public class LexicoFactory {
                 }
 
                 String classe = getClasse(token.getId());
+                
                 if (classe == null) {
                     throw new LexicalError("palavra reservada inválida", token.getPosition());
                 }
+                
                 tokenFactory.adicionarToken(linha, classe, token.getLexeme());
-
-                //System.out.println(t.getLexeme());
-                // só escreve o lexema, necessário escrever t.getId, t.getPosition()
-                // t.getId () - retorna o identificador da classe. Olhar Constants.java e adaptar, pois 
-                // deve ser apresentada a classe por extenso
-                // t.getPosition () - retorna a posição inicial do lexema no editor, necessário adaptar 
-                // para mostrar a linha	
-                // esse código apresenta os tokens enquanto não ocorrer erro
-                // no entanto, os tokens devem ser apresentados SÓ se não ocorrer erro, necessário adaptar 
-                // para atender o que foi solicitado		
             }
 
-        } catch (LexicalError e) {  // tratamento de erros
+        } catch (LexicalError e) {
 
             while (e.getPosition() > linhas[linha - 1].length() + posJaLidas) {
                 posJaLidas += linhas[linha - 1].length() + 1;
@@ -79,12 +72,7 @@ public class LexicoFactory {
                 lexemaErro = lexemaErro.substring(0, procura.start());
             }
 
-            return linhaErro + lexemaErro + " " + e.getMessage();
-
-            // e.getMessage() - retorna a mensagem de erro de SCANNER_ERRO (olhar ScannerConstants.java 
-            // e adaptar conforme o enunciado da parte 2)
-            // e.getPosition() - retorna a posição inicial do erro, tem que adaptar para mostrar a 
-            // linha  
+            return linhaErro + lexemaErro + " " + e.getMessage();  
         }
 
         return tokenFactory.build();

@@ -12,14 +12,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.*;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import model.lexico.resources.LexicalError;
-import model.lexico.resources.Lexico;
-import model.lexico.resources.Token;
 import model.lexico.LexicoFactory;
 
 /**
