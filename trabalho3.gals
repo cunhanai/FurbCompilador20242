@@ -1,0 +1,165 @@
+#Options
+GenerateScanner = true
+GenerateParser = true
+Language = Java
+ScannerName = Lexico
+ParserName = Sintatico
+SemanticName = Semantico
+ScannerCaseSensitive = true
+ScannerTable = Compact
+Input = Stream
+Parser = LL
+#RegularDefinitions
+min: [a-z]
+mai: [A-Z]
+letra: {min} | {mai}
+dig: [0-9]
+prefixo: (i|f|b|s)_
+umnove: [1-9]
+#Tokens
+// equipe: Ana Júlia da Cunha, Gabriel Ribas Cestari, Thomas Augusto Haskel
+
+reserva: {min} {letra}*
+
+main = reserva: "main"
+end = reserva: "end"
+if = reserva: "if"
+elif = reserva: "elif"
+else = reserva: "else"
+false = reserva: "false"
+true = reserva: "true"
+read = reserva: "read"
+write = reserva: "write"
+writeln = reserva: "writeln"
+repeat = reserva: "repeat"
+until = reserva: "until"
+while = reserva: "while"
+
+identificador:! {prefixo} ({letra} | {min} {mai}) (({min} | {dig}) {mai}?)*
+conint: ("0" | {umnove} {dig}*)
+confloat: ("0" | {umnove} {dig}*) "," ({dig}* {umnove} | "0")
+constring:  \" ([^\n\"%] | % x)* \"
+
+//bloco
+:! ">@" \n [^@]* \n "@<"
+
+//símbolo especial
+"&&"
+"||"
+"!"
+"=="
+"!="
+"<"
+">"
+"+" 
+"-"
+"*"
+"/"
+","
+";"
+"="
+"("
+")"
+
+//caracter de formatação
+:[\s\t\n]
+
+
+
+#NonTerminals
+<main>
+
+<lista_instrucoes>
+<lista_instrucoes1>
+<instrucao>
+<instrucao1>
+<lista_ids>
+<lista_ids1>
+<comando>
+
+<atribuicao>
+
+<entrada>
+<lista_entradas>
+<lista_entradas1>
+<opc_constring>
+
+<saida>
+<escolha_write>
+<lista_expressoes>
+<lista_expressoes1>
+
+<selecao>
+<if>
+<opc_elif>
+<opc_else>
+<lista_comandos>
+<lista_comandos1>
+
+<repeticao> 
+<escolha_repeticao>
+
+<expressao>
+<expressao1>
+<elemento>
+<relacional>
+<relacional1>
+<operador_relacional>
+<aritmetica>
+<aritmetica1>
+<termo>
+<termo1>
+<fator>
+
+#Grammar
+<main> ::= main <lista_instrucoes> end ;
+<lista_instrucoes> ::= <instrucao>";" <lista_instrucoes1> ;
+<lista_instrucoes1> ::= î | <lista_instrucoes> ;
+<instrucao> ::= <comando> | <lista_ids> <instrucao1>;
+<instrucao1> ::= î | <atribuicao> ;
+<lista_ids> ::= identificador <lista_ids1> ;
+<lista_ids1> ::= î | ","<lista_ids> ;
+<comando> ::= <entrada> | <saida> | <selecao> | <repeticao> ;
+
+<atribuicao> ::= "=" <expressao> ;
+
+<entrada> ::= read "(" <lista_entradas> ")" ;
+<lista_entradas> ::= <opc_constring> identificador <lista_entradas1> ;
+<lista_entradas1> ::= î | "," <lista_entradas> ;
+<opc_constring> ::= constring "," | î ;
+
+<saida> ::= <escolha_write> "(" <lista_expressoes> ")" ;
+<escolha_write> ::= write | writeln ;
+<lista_expressoes> ::= <expressao> <lista_expressoes1> ;
+<lista_expressoes1> ::= î | "," <lista_expressoes> ;
+
+<selecao> ::= <if> <opc_elif> <opc_else> end ;
+<if> ::= if <expressao> <lista_comandos> ;
+<opc_elif> ::= elif <expressao> <lista_comandos> <opc_elif> | î ;
+<opc_else> ::= else <lista_comandos> | î ;
+<lista_comandos> ::= <comando> ";" <lista_comandos1> ;
+<lista_comandos1> ::= î | <lista_comandos> ;
+
+<repeticao> ::= repeat <lista_comandos> <escolha_repeticao> <expressao> ;
+<escolha_repeticao> ::= while | until ;
+
+
+<expressao> ::= <elemento> <expressao1> ; 
+<expressao1> ::= î | "&&" <elemento> <expressao1> | "||" <elemento> <expressao1> ; 
+<elemento> ::= <relacional> | true | false | "!" <elemento> ; 
+<relacional> ::= <aritmetica> <relacional1> ; 
+<relacional1> ::= î | <operador_relacional> <aritmetica> ; 
+<operador_relacional>::= "==" | "!=" | "<" | ">" ; 
+<aritmetica> ::= <termo> <aritmetica1> ; 
+<aritmetica1> ::= î | "+" <termo> <aritmetica1> | "-" <termo> <aritmetica1> ; 
+<termo> ::= <fator> <termo1> ; 
+<termo1> ::= î | "*" <fator> <termo1> | "/" <fator> <termo1> ; 
+<fator> ::= identificador | 
+ conint | 
+ confloat | 
+ constring | 
+ "(" <expressao> ")" | 
+ "+" <fator> | 
+ "-" <fator> ;
+ 
+
