@@ -137,7 +137,7 @@ constring:  \" ([^\n\"%] | % x)* \"
 <if> ::= if <expressao> <lista_comandos> ;
 <opc_elif> ::= elif <expressao> <lista_comandos> <opc_elif> | î ;
 <opc_else> ::= else <lista_comandos> | î ;
-<lista_comandos> ::= <comando> ";" <lista_comandos1> ;
+<lista_comandos> ::= <comando> ";" <lista_comandos1> | <lista_ids> <atribuicao> ";" <lista_comandos1> ;
 <lista_comandos1> ::= î | <lista_comandos> ;
 
 <repeticao> ::= repeat <lista_comandos> <escolha_repeticao> <expressao> ;

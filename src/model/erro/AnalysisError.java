@@ -1,4 +1,4 @@
-package model.lexico.resources;
+package model.erro;
 
 public class AnalysisError extends Exception
 {

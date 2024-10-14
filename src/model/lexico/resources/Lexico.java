@@ -1,5 +1,7 @@
 package model.lexico.resources;
 
+import model.erro.LexicalError;
+
 public class Lexico implements Constants
 {
     private int position;

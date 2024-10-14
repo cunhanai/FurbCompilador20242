@@ -6,7 +6,7 @@ package model.lexico;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import model.lexico.resources.LexicalError;
+import model.erro.LexicalError;
 import model.lexico.resources.Lexico;
 import model.lexico.resources.Token;
 
