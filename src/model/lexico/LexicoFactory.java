@@ -4,6 +4,7 @@
  */
 package model.lexico;
 
+import model.utils.LeitorDeLinha;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import model.erro.LexicalError;
@@ -19,7 +20,6 @@ public class LexicoFactory {
     private Lexico lexico;
     private String editorText;
     LeitorDeLinha leitorDeLinha;
-    TokensOutputFactory tokenFactory;
 
     public LexicoFactory() {
         lexico = new Lexico();
@@ -27,7 +27,6 @@ public class LexicoFactory {
 
     public String realizarAnaliseLexica(String editorText) {
         this.editorText = editorText;
-        tokenFactory = new TokensOutputFactory();
 
         try {
             gerarListaDeTokens();
@@ -35,7 +34,7 @@ public class LexicoFactory {
             return gerarMensagemDeErro(e);
         }
 
-        return tokenFactory.build();
+        return "programa compilado com sucesso";
     }
 
     private void gerarListaDeTokens() throws LexicalError {
@@ -44,11 +43,7 @@ public class LexicoFactory {
         lexico.setInput(editorText);
 
         while ((token = lexico.nextToken()) != null) {
-            int linha = leitorDeLinha.getLinhaDoTokenAtual(token.getPosition());
-            String classe = getClasse(token.getId());
             verificarPalavraReservadaInvalida(token);
-
-            tokenFactory.adicionarToken(linha, classe, token.getLexeme());
         }
     }
 
@@ -96,7 +91,7 @@ public class LexicoFactory {
 
     private String getLexemaErro(LexicalError e) {
         String lexemaDoErro = editorText.substring(e.getPosition());
-        Pattern fimDeLinha = Pattern.compile("\r\n|\n|\r");
+        Pattern fimDeLinha = Pattern.compile("\r\n|\n|\r| ");
         Matcher buscadorFimDelinha = fimDeLinha.matcher(lexemaDoErro);
 
         if (buscadorFimDelinha.find()) {
