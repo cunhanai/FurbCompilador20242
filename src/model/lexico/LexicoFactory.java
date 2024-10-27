@@ -74,8 +74,7 @@ public class LexicoFactory {
 
     private String gerarMensagemDeErro(LexicalError e) {
 
-        leitorDeLinha.getLinhaDoTokenAtual(e.getPosition());
-        String linhaErro = "linha " + leitorDeLinha.getLinhaAtual() + ": ";
+        String linhaErro = "linha " + leitorDeLinha.getLinhaDoTokenAtual(e.getPosition()) + ": ";
 
         if (mensagemDeErroRequerLexema(e.getMessage())) {
             String lexemaErro = getLexemaErro(e);

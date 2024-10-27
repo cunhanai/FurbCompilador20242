@@ -19,10 +19,6 @@ public class LeitorDeLinha {
         listaLinhasDoEditor = textoASerLido.split("\n");
     }
     
-    public int getLinhaAtual(){
-        return linhaAtual;
-    }
-    
     public int getLinhaDoTokenAtual(int posicaoToken) {
         while (posicaoToken > listaLinhasDoEditor[linhaAtual - 1].length() + ponteiroPosicaoNoArquivo) {
             ponteiroPosicaoNoArquivo += listaLinhasDoEditor[linhaAtual - 1].length() + 1;
