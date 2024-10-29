@@ -37,6 +37,11 @@ public abstract class TratadorErro<T> {
         if (buscadorFimDelinha.find()) {
             lexemaDoErro = lexemaDoErro.substring(0, buscadorFimDelinha.start());
         }
+        
+        if (lexemaDoErro.equals(""))
+            lexemaDoErro = "EOF";
+        else if (lexemaDoErro.contains("\""))
+            lexemaDoErro = "constante_string";
 
         return lexemaDoErro;
     }
