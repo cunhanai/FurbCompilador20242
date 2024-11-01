@@ -1,6 +1,8 @@
 package model.lexico.resources;
 
-public interface Constants extends ScannerConstants
+import model.sintatico.resources.ParserConstants;
+
+public interface Constants extends ScannerConstants, ParserConstants
 {
     int EPSILON  = 0;
     int DOLLAR   = 1;

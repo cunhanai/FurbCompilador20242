@@ -4,9 +4,10 @@
  */
 package model.lexico;
 
+import model.utils.LeitorDeLinha;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import model.lexico.resources.LexicalError;
+import model.erro.LexicalError;
 import model.lexico.resources.Lexico;
 import model.lexico.resources.Token;
 
@@ -17,65 +18,33 @@ import model.lexico.resources.Token;
 public class LexicoFactory {
 
     private Lexico lexico;
+    private String editorText;
+    LeitorDeLinha leitorDeLinha;
 
     public LexicoFactory() {
         lexico = new Lexico();
     }
 
-    public String RealizarAnaliseLexica(String editorText) {
-        TokensOutputFactory tokenFactory = new TokensOutputFactory();
+    public String realizarAnaliseLexica(String editorText) {
+        this.editorText = editorText;
 
-        lexico.setInput(editorText); // texto do editor de textos
-
-        int linha = 1;
-        int posJaLidas = 0;
-        String[] linhas = editorText.split("\n");
-
-        Token token = null;
-        
         try {
-
-            while ((token = lexico.nextToken()) != null) {
-
-                while (token.getPosition() > linhas[linha - 1].length() + posJaLidas) {
-                    posJaLidas += linhas[linha - 1].length() + 1;
-                    linha++;
-                }
-
-                String classe = getClasse(token.getId());
-                
-                if (classe == null) {
-                    throw new LexicalError("palavra reservada inválida", token.getPosition());
-                }
-                
-                tokenFactory.adicionarToken(linha, classe, token.getLexeme());
-            }
-
+            gerarListaDeTokens();
         } catch (LexicalError e) {
-
-            while (e.getPosition() > linhas[linha - 1].length() + posJaLidas) {
-                posJaLidas += linhas[linha - 1].length() + 1;
-                linha++;
-            }
-
-            String linhaErro = "linha " + linha + ": ";
-
-            if (e.getMessage().contains("constante_string") || e.getMessage().contains("comentário de bloco")) {
-                return linhaErro + e.getMessage();
-            }
-
-            String lexemaErro = editorText.substring(e.getPosition());
-            Pattern fimDeLexema = Pattern.compile("\r\n|\n|\r");
-            Matcher procura = fimDeLexema.matcher(lexemaErro);
-
-            if (procura.find()) {
-                lexemaErro = lexemaErro.substring(0, procura.start());
-            }
-
-            return linhaErro + lexemaErro + " " + e.getMessage();  
+            return gerarMensagemDeErro(e);
         }
 
-        return tokenFactory.build();
+        return "programa compilado com sucesso";
+    }
+
+    private void gerarListaDeTokens() throws LexicalError {
+        Token token = null;
+        leitorDeLinha = new LeitorDeLinha(editorText);
+        lexico.setInput(editorText);
+
+        while ((token = lexico.nextToken()) != null) {
+            verificarPalavraReservadaInvalida(token);
+        }
     }
 
     private String getClasse(int id) {
@@ -95,5 +64,39 @@ public class LexicoFactory {
         }
 
         return null;
+    }
+
+    private void verificarPalavraReservadaInvalida(Token token) throws LexicalError {
+        if (getClasse(token.getId()) == null) {
+            throw new LexicalError("palavra reservada inválida", token.getPosition());
+        }
+    }
+
+    private String gerarMensagemDeErro(LexicalError e) {
+
+        String linhaErro = "linha " + leitorDeLinha.getLinhaDoTokenAtual(e.getPosition()) + ": ";
+
+        if (mensagemDeErroRequerLexema(e.getMessage())) {
+            String lexemaErro = getLexemaErro(e);
+            return linhaErro + lexemaErro + " " + e.getMessage();
+        } else {
+            return linhaErro + e.getMessage();
+        }
+    }
+
+    private boolean mensagemDeErroRequerLexema(String mensagemErro) {
+        return !(mensagemErro.contains("constante_string") || mensagemErro.contains("comentário de bloco"));
+    }
+
+    private String getLexemaErro(LexicalError e) {
+        String lexemaDoErro = editorText.substring(e.getPosition());
+        Pattern fimDeLinha = Pattern.compile("\r\n|\n|\r| ");
+        Matcher buscadorFimDelinha = fimDeLinha.matcher(lexemaDoErro);
+
+        if (buscadorFimDelinha.find()) {
+            lexemaDoErro = lexemaDoErro.substring(0, buscadorFimDelinha.start());
+        }
+
+        return lexemaDoErro;
     }
 }

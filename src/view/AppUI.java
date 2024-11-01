@@ -4,6 +4,7 @@
  */
 package view;
 
+import controller.ControladorBotaoCompilar;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
@@ -452,9 +453,12 @@ public class AppUI extends javax.swing.JFrame {
     private void buttonCompilarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCompilarActionPerformed
         testAreamensagens();
 
-        LexicoFactory lexico = new LexicoFactory();
-        String tokens = lexico.RealizarAnaliseLexica(editor.getText());
-        areaMensagens.setText(tokens);
+        //LexicoFactory lexico = new LexicoFactory();
+        //String tokens = lexico.realizarAnaliseLexica(editor.getText());
+        ControladorBotaoCompilar controladorBotaoCompilar = new ControladorBotaoCompilar(editor.getText());
+        areaMensagens.setText(controladorBotaoCompilar.enviarEstadoDaCompilacao());
+        
+        	
     }//GEN-LAST:event_buttonCompilarActionPerformed
 
     private void buttonAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAbrirActionPerformed

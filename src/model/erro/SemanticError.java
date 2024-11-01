@@ -1,7 +1,5 @@
 package model.erro;
 
-import model.lexico.resources.AnalysisError;
-
 public class SemanticError extends AnalysisError
 {
     public SemanticError(String msg, int position)
