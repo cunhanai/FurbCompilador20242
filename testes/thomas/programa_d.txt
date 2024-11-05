@@ -1,0 +1,24 @@
+>@
+Thomas Augusto Haskel
+@<
+
+main
+	i_mesLido;		
+
+	read(i_mesLido);
+	if(i_mesLido < 1 || i_mesLido > 12)
+		repeat
+			write("valor invalido, digitar um valor entre 1 e 12: ");
+			read(i_mesLido);
+		while(i_mesLido < 1 || i_mesLido > 12);
+	end;
+	if(i_mesLido < 4)
+		writeln("primeiro trimestre");
+	elif(i_mesLido < 7)
+		writeln("segundo trimestre");
+	elif(i_mesLido < 10)
+		writeln("terceiro trimestre");
+	else
+		writeln("quarto trimestre");
+	end;
+end

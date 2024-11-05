@@ -1,0 +1,19 @@
+>@
+Thomas Augusto Haskel
+@<
+
+main
+	i_anoAtual, i_anoNascimento, i_idade;
+	
+	i_anoAtual = 2024;
+	writeln("digite seu ano de nascimento: ");
+	read(i_anoNascimento);
+	i_idade = i_anoAtual - i_anoNascimento;
+	if (i_idade < 13)
+		writeln("pre-mirim a petiz");
+	elif (i_idade < 20)
+		writeln("infantil a junior");
+	else
+		writeln("senior");
+	end;
+end

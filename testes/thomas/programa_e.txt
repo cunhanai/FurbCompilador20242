@@ -1,0 +1,23 @@
+>@
+Thomas Augusto Haskel
+@<
+
+main
+	i_qtValores, i_contador, i_numeroLido, i_contadorSomatorio, i_somatorio;
+	
+	write("quantos numeros: ");
+	read(i_qtValores);
+	i_contador = 0;
+	repeat
+		write("digite um numero: ");
+		read(i_numeroLido);
+		i_somatorio = 0;
+		i_contadorSomatorio = 0;
+		repeat
+			i_somatorio = i_somatorio + i_contadorSomatorio;
+			i_contadorSomatorio = i_contadorSomatorio + 1;
+		until(i_contadorSomatorio > i_numeroLido);
+		writeln("somatorio: " + i_somatorio);
+		i_contador = i_contador + 1;
+	while(i_qtValores > i_contador);
+end

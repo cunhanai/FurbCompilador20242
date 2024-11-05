@@ -1,0 +1,16 @@
+>@
+Thomas Augusto Haskel
+@<
+
+main
+	i_numTotalPrestacoes, i_numPrestacoesPagas, f_valorPrestacao, f_saldoDevedor;
+
+	write("qual o numero total de prestacoes: ");
+	read(i_numTotalPrestacoes);
+	write("quantas prestacoes voce pagou: ");
+	read(i_numPrestacoesPagas);
+	write("qual o valor da prestacao: ");
+	read(f_valorPrestacao);
+	f_saldoDevedor = (i_numTotalPrestacoes - i_numPrestacoesPagas) * f_valorPrestacao;
+	write("saldo devedor: " + f_saldoDevedor);
+end
