@@ -1,0 +1,15 @@
+>@
+Ana Júlia da Cunha
+@<
+
+main
+    i_baseMaior, i_baseMenor, i_altura, f_area;
+
+    read(i_baseMaior);
+    read(i_baseMenor);
+    read(i_altura);
+
+    f_area = (i_baseMaior + i_baseMenor) * i_altura / 2;
+
+    writeln(f_area);
+end

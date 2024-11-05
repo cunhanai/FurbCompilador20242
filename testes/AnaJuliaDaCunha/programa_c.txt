@@ -1,0 +1,22 @@
+>@
+Ana Júlia da Cunha
+@<
+
+main
+    i_anoNascimento, i_anoAtual, i_idade, s_categoria;
+
+    i_anoAtual = 2024;
+    read("digite seu ano de nascimento: ", i_anoNascimento);
+
+    i_idade = i_anoAtual - i_anoNascimento;
+
+    if i_idade < 13
+        s_categoria = "pré-mirim a petiz";
+    elif i_idade < 20
+        s_categoria = "infantil a júnior";
+    else
+        s_categoria = "senior";
+    end;
+
+    writeln(s_categoria);
+end

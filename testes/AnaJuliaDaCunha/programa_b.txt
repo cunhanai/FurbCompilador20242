@@ -1,0 +1,15 @@
+>@
+Ana Júlia da Cunha
+@<
+
+main
+    i_numPrestacoesTotais, i_qtdPrestacoesPagas, f_valorPrestacao, f_saldoDevedor;
+
+    read("qual o numero total de prestacoes: ", i_numPrestacoesTotais);
+    read("quantas prestacoes voce pagou: ", i_qtdPrestacoesPagas);
+    read("qual o valor da prestacao: ", f_valorPrestacao);
+
+    f_saldoDevedor = (i_numPrestacoesTotais - i_qtdPrestacoesPagas) * f_valorPrestacao;
+
+    write(f_saldoDevedor);
+end

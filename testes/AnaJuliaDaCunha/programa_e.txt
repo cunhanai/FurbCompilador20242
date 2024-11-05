@@ -1,0 +1,25 @@
+>@
+Ana Júlia da Cunha
+@<
+
+main
+    i_qtdNumeros, i_qtdLidos, i_valorLido, i_somatorio, i_valorBase;
+
+    read("quantos numeros: ", i_qtdNumeros);
+    i_qtdLidos = 0;
+
+    repeat
+        read("digite um numero: ", i_valorLido);
+	i_qtdLidos = i_qtdLidos + 1;
+
+	i_somatorio = 0;
+	i_valorBase = 1;
+
+        repeat
+            i_somatorio = i_somatorio + i_valorBase;
+            i_valorBase = i_valorBase + 1;
+        until i_valorBase > i_valorLido;
+
+        writeln("somatorio: ", i_somatorio);
+    while i_qtdLidos < i_qtdNumeros;
+end
