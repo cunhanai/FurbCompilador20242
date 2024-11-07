@@ -64,6 +64,7 @@ public class AppUI extends javax.swing.JFrame {
         File file = selecionarArquivo();
         if (file != null) {
             String texto = lerArquivo(file);
+            texto = texto.replaceAll("\r", "");
             limparAmbiente();
             editor.setText(texto);
             atualizarBarraStatus(file);
@@ -455,6 +456,7 @@ public class AppUI extends javax.swing.JFrame {
 
         //LexicoFactory lexico = new LexicoFactory();
         //String tokens = lexico.realizarAnaliseLexica(editor.getText());
+        //areaMensagens.setText(tokens);
         ControladorBotaoCompilar controladorBotaoCompilar = new ControladorBotaoCompilar(editor.getText());
         areaMensagens.setText(controladorBotaoCompilar.enviarEstadoDaCompilacao());
         

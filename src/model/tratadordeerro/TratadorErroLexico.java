@@ -31,4 +31,23 @@ public class TratadorErroLexico extends TratadorErro<LexicalError>{
     private boolean mensagemDeErroRequerLexema(String mensagemErro) {
         return !(mensagemErro.contains("constante_string") || mensagemErro.contains("comentário de bloco"));
     }
+    
+    private String getClasseLexema(int id) {
+
+        if (id == 16) {
+            return "identificador";
+        } else if (id == 17) {
+            return "constante_int";
+        } else if (id == 18) {
+            return "constante_float";
+        } else if (id == 19) {
+            return "constante_string";
+        } else if (id >= 3 && id <= 15) {
+            return "palavra reservada";
+        } else if (id >= 20 && id <= 35) {
+            return "símbolo especial";
+        }
+
+        return null;
+    }
 }
