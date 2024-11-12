@@ -112,54 +112,62 @@ constring:  \" ([^\n\"%] | % x)* \"
 <fator>
 
 #Grammar
-<main> ::= main <lista_instrucoes> end ;
+<main> ::= #100 main <lista_instrucoes> end #101 ;
+
 <lista_instrucoes> ::= <instrucao>";" <lista_instrucoes1> ;
 <lista_instrucoes1> ::= î | <lista_instrucoes> ;
+
 <instrucao> ::= <comando> | <lista_ids> <instrucao1>;
-<instrucao1> ::= î | <atribuicao> ;
-<lista_ids> ::= identificador <lista_ids1> ;
+<instrucao1> ::= #102 î | <atribuicao> #103 ;
+
+<lista_ids> ::= identificador #104 <lista_ids1> ;
 <lista_ids1> ::= î | ","<lista_ids> ;
 <comando> ::= <entrada> | <saida> | <selecao> | <repeticao> ;
 
-<atribuicao> ::= "=" <expressao> ;
+<atribuicao> ::= "=" <expressao> #103 ;
 
 <entrada> ::= read "(" <lista_entradas> ")" ;
-<lista_entradas> ::= <opc_constring> identificador <lista_entradas1> ;
+<lista_entradas> ::= <opc_constring> identificador #105 <lista_entradas1> ;
 <lista_entradas1> ::= î | "," <lista_entradas> ;
-<opc_constring> ::= constring "," | î ;
+<opc_constring> ::= constring #106 "," | î ;
 
 <saida> ::= <escolha_write> "(" <lista_expressoes> ")" ;
 <escolha_write> ::= write | writeln ;
-<lista_expressoes> ::= <expressao> <lista_expressoes1> ;
+<lista_expressoes> ::= <expressao> #108 <lista_expressoes1> ;
 <lista_expressoes1> ::= î | "," <lista_expressoes> ;
 
-<selecao> ::= <if> <opc_elif> <opc_else> end ;
-<if> ::= if <expressao> <lista_comandos> ;
-<opc_elif> ::= elif <expressao> <lista_comandos> <opc_elif> | î ;
+<selecao> ::= <if> <opc_elif> #110 <opc_else> #111 end ;
+<if> ::= if <expressao> #109 <lista_comandos> ;
+<opc_elif> ::= #110 elif <expressao> #112 <lista_comandos> <opc_elif> | î ;
 <opc_else> ::= else <lista_comandos> | î ;
+
 <lista_comandos> ::= <comando> ";" <lista_comandos1> | <lista_ids> <atribuicao> ";" <lista_comandos1> ;
 <lista_comandos1> ::= î | <lista_comandos> ;
 
-<repeticao> ::= repeat <lista_comandos> <escolha_repeticao> <expressao> ;
+<repeticao> ::= #113 repeat <lista_comandos> <escolha_repeticao> #114 <expressao> #115 ;
 <escolha_repeticao> ::= while | until ;
 
 
 <expressao> ::= <elemento> <expressao1> ; 
-<expressao1> ::= î | "&&" <elemento> <expressao1> | "||" <elemento> <expressao1> ; 
-<elemento> ::= <relacional> | true | false | "!" <elemento> ; 
+<expressao1> ::= î | "&&" <elemento> #116 <expressao1> | "||" <elemento> #117 <expressao1> ; 
+<elemento> ::= <relacional> | true #118 | false #119 | "!" <elemento> #120 ; 
+
 <relacional> ::= <aritmetica> <relacional1> ; 
-<relacional1> ::= î | <operador_relacional> <aritmetica> ; 
+<relacional1> ::= î | <operador_relacional> #121 <aritmetica> #122 ; 
 <operador_relacional>::= "==" | "!=" | "<" | ">" ; 
+
 <aritmetica> ::= <termo> <aritmetica1> ; 
-<aritmetica1> ::= î | "+" <termo> <aritmetica1> | "-" <termo> <aritmetica1> ; 
+<aritmetica1> ::= î | "+" <termo> #123 <aritmetica1> | "-" <termo> #124 <aritmetica1> ; 
+
 <termo> ::= <fator> <termo1> ; 
-<termo1> ::= î | "*" <fator> <termo1> | "/" <fator> <termo1> ; 
-<fator> ::= identificador | 
- conint | 
- confloat | 
- constring | 
+<termo1> ::= î | "*" <fator> #125 <termo1> | "/" <fator> #126 <termo1> ; 
+
+<fator> ::= identificador #127 | 
+ conint #128 | 
+ confloat #129 | 
+ constring #130 | 
  "(" <expressao> ")" | 
  "+" <fator> | 
- "-" <fator> ;
+ "-" <fator> #131 ;
  
 
