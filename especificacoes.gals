@@ -7,7 +7,7 @@ ParserName = Sintatico
 SemanticName = Semantico
 ScannerCaseSensitive = true
 ScannerTable = Compact
-Input = Stream
+Input = String
 Parser = LL
 #RegularDefinitions
 min: [a-z]
@@ -118,7 +118,7 @@ constring:  \" ([^\n\"%] | % x)* \"
 <lista_instrucoes1> ::= î | <lista_instrucoes> ;
 
 <instrucao> ::= <comando> | <lista_ids> <instrucao1>;
-<instrucao1> ::= #102 î | <atribuicao> #103 ;
+<instrucao1> ::= #102 î | <atribuicao> ;
 
 <lista_ids> ::= identificador #104 <lista_ids1> ;
 <lista_ids1> ::= î | ","<lista_ids> ;
@@ -131,7 +131,7 @@ constring:  \" ([^\n\"%] | % x)* \"
 <lista_entradas1> ::= î | "," <lista_entradas> ;
 <opc_constring> ::= constring #106 "," | î ;
 
-<saida> ::= <escolha_write> "(" <lista_expressoes> ")" ;
+<saida> ::= <escolha_write> #132 "(" <lista_expressoes> ")" #107 ;
 <escolha_write> ::= write | writeln ;
 <lista_expressoes> ::= <expressao> #108 <lista_expressoes1> ;
 <lista_expressoes1> ::= î | "," <lista_expressoes> ;
@@ -144,8 +144,8 @@ constring:  \" ([^\n\"%] | % x)* \"
 <lista_comandos> ::= <comando> ";" <lista_comandos1> | <lista_ids> <atribuicao> ";" <lista_comandos1> ;
 <lista_comandos1> ::= î | <lista_comandos> ;
 
-<repeticao> ::= #113 repeat <lista_comandos> <escolha_repeticao> #114 <expressao> #115 ;
-<escolha_repeticao> ::= while | until ;
+<repeticao> ::= #113 repeat <lista_comandos> <escolha_repeticao> ;
+<escolha_repeticao> ::= while <expressao> #114 | until <expressao> #115 ;
 
 
 <expressao> ::= <elemento> <expressao1> ; 
