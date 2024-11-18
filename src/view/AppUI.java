@@ -459,8 +459,6 @@ public class AppUI extends javax.swing.JFrame {
         //areaMensagens.setText(tokens);
         ControladorBotaoCompilar controladorBotaoCompilar = new ControladorBotaoCompilar(editor.getText());
         areaMensagens.setText(controladorBotaoCompilar.enviarEstadoDaCompilacao());
-        
-        	
     }//GEN-LAST:event_buttonCompilarActionPerformed
 
     private void buttonAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAbrirActionPerformed

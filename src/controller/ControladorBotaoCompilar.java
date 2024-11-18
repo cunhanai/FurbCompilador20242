@@ -8,10 +8,10 @@ import model.erro.LexicalError;
 import model.erro.SemanticError;
 import model.erro.SyntaticError;
 import model.tratadordeerro.TratadorErroLexico;
-import model.lexico.resources.Lexico;
+import model.lexico.resources.LexicoExtendido;
 import model.semantico.resources.Semantico;
 import model.tratadordeerro.TratadorErroSintatico;
-import model.sintatico.resources.Sintatico;
+import model.sintatico.resources.SintaticoExtendido;
 
 /**
  *
@@ -20,16 +20,16 @@ import model.sintatico.resources.Sintatico;
 public class ControladorBotaoCompilar {
     
     private String editorText;
-    private Lexico lexico;
-    private Sintatico sintatico;
+    private LexicoExtendido lexico;
+    private SintaticoExtendido sintatico;
     private Semantico semantico;
     private TratadorErroLexico tratadorErroLexico;
     private TratadorErroSintatico tratadorErroSintatico;
     
     public ControladorBotaoCompilar(String editorText) {
         this.editorText = editorText;
-        lexico = new Lexico();
-        sintatico = new Sintatico();
+        lexico = new LexicoExtendido();
+        sintatico = new SintaticoExtendido();
         semantico = new Semantico();
         tratadorErroLexico = new TratadorErroLexico(editorText);
         tratadorErroSintatico = new TratadorErroSintatico(editorText);
