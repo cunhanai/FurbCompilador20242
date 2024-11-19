@@ -4,10 +4,20 @@
  */
 package model.utils;
 
+import java.util.List;
+import model.lexico.resources.Token;
+
 /**
  *
  * @author tahaskel
  */
 public class GeradorCodigoObjeto {
+    
+    private List<String> comandos;
+ 
+    public List<String> gerarCarregarValorConstante(Token token){
+        comandos.add("ldc.i8 " + token.getLexeme());
+        return comandos;
+    }
     
 }
