@@ -46,7 +46,7 @@ public interface ScannerConstants
         998
     };
 
-    int[][] SCANNER_TABLE = 
+int[][] SCANNER_TABLE = 
     {
         {9, 1},
         {10, 1},
