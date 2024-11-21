@@ -20,5 +20,4 @@ public class SintaticoExtendido extends Sintatico {
         super.parse(scanner, semanticAnalyser);
     }
     
-    
 }
