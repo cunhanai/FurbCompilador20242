@@ -9,7 +9,7 @@ import model.erro.SemanticError;
 import model.erro.SyntaticError;
 import model.tratadordeerro.TratadorErroLexico;
 import model.lexico.resources.LexicoExtendido;
-import model.semantico.resources.Semantico;
+import model.lexico.resources.Token;
 import model.semantico.resources.SemanticoHandler;
 import model.tratadordeerro.TratadorErroSintatico;
 import model.sintatico.resources.SintaticoExtendido;
@@ -40,10 +40,12 @@ public class ControladorBotaoCompilar {
         try {
             lexico.setInput(editorText);
             sintatico.parse(lexico, semantico);
-            return semantico.transcreverCodigoObjeto();
+            //return semantico.transcreverCodigoObjeto();
         } catch (LexicalError e) {
             return tratadorErroLexico.gerarMensagemDeErro(e);
         } catch (SyntaticError e) {
+            Token currentToken = sintatico.getCurrentToken();
+            tratadorErroSintatico.setCurrentToken(currentToken);
             return tratadorErroSintatico.gerarMensagemDeErro(e);	
         } catch (SemanticError e) {
             //Trata erros semânticos

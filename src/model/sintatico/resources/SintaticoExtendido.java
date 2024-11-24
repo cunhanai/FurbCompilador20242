@@ -19,5 +19,4 @@ public class SintaticoExtendido extends Sintatico {
     public void parse(LexicoExtendido scanner, Semantico semanticAnalyser) throws LexicalError, SyntaticError, SemanticError {
         super.parse(scanner, semanticAnalyser);
     }
-    
 }
