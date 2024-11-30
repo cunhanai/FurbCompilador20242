@@ -17,7 +17,6 @@ import java.util.Scanner;
 import javax.swing.*;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import model.lexico.LexicoFactory;
 
 /**
  *
@@ -457,7 +456,7 @@ public class AppUI extends javax.swing.JFrame {
         //LexicoFactory lexico = new LexicoFactory();
         //String tokens = lexico.realizarAnaliseLexica(editor.getText());
         //areaMensagens.setText(tokens);
-        ControladorBotaoCompilar controladorBotaoCompilar = new ControladorBotaoCompilar(editor.getText());
+        ControladorBotaoCompilar controladorBotaoCompilar = new ControladorBotaoCompilar(editor.getText(), filePath);
         areaMensagens.setText(controladorBotaoCompilar.enviarEstadoDaCompilacao());
     }//GEN-LAST:event_buttonCompilarActionPerformed
 

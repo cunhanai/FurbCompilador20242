@@ -13,6 +13,7 @@ import model.lexico.resources.Token;
 import model.semantico.resources.SemanticoHandler;
 import model.tratadordeerro.TratadorErroSintatico;
 import model.sintatico.resources.SintaticoExtendido;
+import model.utils.GerenciadorDeArquivoIl;
 
 /**
  *
@@ -26,21 +27,24 @@ public class ControladorBotaoCompilar {
     private SemanticoHandler semantico;
     private TratadorErroLexico tratadorErroLexico;
     private TratadorErroSintatico tratadorErroSintatico;
+    private GerenciadorDeArquivoIl gerenciadorDeArquivoIl;
     
-    public ControladorBotaoCompilar(String editorText) {
+    public ControladorBotaoCompilar(String editorText, String localArquivo) {
         this.editorText = editorText;
         lexico = new LexicoExtendido();
         sintatico = new SintaticoExtendido();
         semantico = new SemanticoHandler();
         tratadorErroLexico = new TratadorErroLexico(editorText);
         tratadorErroSintatico = new TratadorErroSintatico(editorText);
+        gerenciadorDeArquivoIl = new GerenciadorDeArquivoIl(localArquivo);
     }
     
     public String enviarEstadoDaCompilacao() {
         try {
             lexico.setInput(editorText);
             sintatico.parse(lexico, semantico);
-            //return semantico.transcreverCodigoObjeto();
+            String programa = semantico.transcreverCodigoObjeto();
+            gerenciadorDeArquivoIl.salvarArquivoIl(programa);
         } catch (LexicalError e) {
             return tratadorErroLexico.gerarMensagemDeErro(e);
         } catch (SyntaticError e) {
@@ -52,34 +56,4 @@ public class ControladorBotaoCompilar {
         }        
         return "programa compilado com sucesso";
     }
-
-    /*
-                Lexico lexico = new Lexico();
-		Sintatico sintatico = new Sintatico();
-		Semantico semantico = new Semantico();
-		lexico.setInput(  [entrada] );
-		try
-		{
-			sintatico.parse(lexico, semantico);    // tradução dirigida pela sintaxe
-		}
-		// mensagem: programa compilado com sucesso - área reservada para mensagens
-		
-		catch ( LexicalError e )
-		{
-			//Trata erros léxicos, conforme especificação da parte 2 - do compilador
-		}
-		catch ( SyntaticError e )
-		{
-		       System.out.println(e.getPosition() + " símbolo encontrado: na entrada " + e.getMessage()); 
-			 
-			//Trata erros sintáticos
-			//linha 			      sugestão: converter getPosition em linha
-			//símbolo encontrado    sugestão: implementar um método getToken no sintatico
-			//símbolos esperados,   alterar ParserConstants.java, String[] PARSER_ERROR
-                        // consultar os símbolos esperados no GALS (em Documentação > Tabela de Análise Sintática): 		
-		}
-		catch ( SemanticError e )
-		{
-			//Trata erros semânticos
-		}*/
 }
