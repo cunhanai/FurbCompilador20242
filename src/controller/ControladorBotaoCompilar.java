@@ -8,10 +8,11 @@ import model.erro.LexicalError;
 import model.erro.SemanticError;
 import model.erro.SyntaticError;
 import model.tratadordeerro.TratadorErroLexico;
-import model.lexico.resources.Lexico;
-import model.semantico.resources.Semantico;
+import model.lexico.resources.LexicoExtendido;
+import model.lexico.resources.Token;
+import model.semantico.resources.SemanticoHandler;
 import model.tratadordeerro.TratadorErroSintatico;
-import model.sintatico.resources.Sintatico;
+import model.sintatico.resources.SintaticoExtendido;
 
 /**
  *
@@ -20,17 +21,17 @@ import model.sintatico.resources.Sintatico;
 public class ControladorBotaoCompilar {
     
     private String editorText;
-    private Lexico lexico;
-    private Sintatico sintatico;
-    private Semantico semantico;
+    private LexicoExtendido lexico;
+    private SintaticoExtendido sintatico;
+    private SemanticoHandler semantico;
     private TratadorErroLexico tratadorErroLexico;
     private TratadorErroSintatico tratadorErroSintatico;
     
     public ControladorBotaoCompilar(String editorText) {
         this.editorText = editorText;
-        lexico = new Lexico();
-        sintatico = new Sintatico();
-        semantico = new Semantico();
+        lexico = new LexicoExtendido();
+        sintatico = new SintaticoExtendido();
+        semantico = new SemanticoHandler();
         tratadorErroLexico = new TratadorErroLexico(editorText);
         tratadorErroSintatico = new TratadorErroSintatico(editorText);
     }
@@ -38,10 +39,13 @@ public class ControladorBotaoCompilar {
     public String enviarEstadoDaCompilacao() {
         try {
             lexico.setInput(editorText);
-            sintatico.parse(lexico, semantico);    // tradução dirigida pela sintaxe
+            sintatico.parse(lexico, semantico);
+            //return semantico.transcreverCodigoObjeto();
         } catch (LexicalError e) {
             return tratadorErroLexico.gerarMensagemDeErro(e);
         } catch (SyntaticError e) {
+            Token currentToken = sintatico.getCurrentToken();
+            tratadorErroSintatico.setCurrentToken(currentToken);
             return tratadorErroSintatico.gerarMensagemDeErro(e);	
         } catch (SemanticError e) {
             //Trata erros semânticos

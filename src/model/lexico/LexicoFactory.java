@@ -8,7 +8,7 @@ import model.utils.LeitorDeLinha;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import model.erro.LexicalError;
-import model.lexico.resources.Lexico;
+import model.lexico.resources.LexicoExtendido;
 import model.lexico.resources.Token;
 
 /**
@@ -17,12 +17,12 @@ import model.lexico.resources.Token;
  */
 public class LexicoFactory {
 
-    private Lexico lexico;
+    private LexicoExtendido lexico;
     private String editorText;
     LeitorDeLinha leitorDeLinha;
 
     public LexicoFactory() {
-        lexico = new Lexico();
+        lexico = new LexicoExtendido();
     }
 
     public String realizarAnaliseLexica(String editorText) {
@@ -43,35 +43,10 @@ public class LexicoFactory {
         lexico.setInput(editorText);
 
         while ((token = lexico.nextToken()) != null) {
-            verificarPalavraReservadaInvalida(token);
+            token = token;
         }
     }
-
-    private String getClasse(int id) {
-
-        if (id == 16) {
-            return "identificador";
-        } else if (id == 17) {
-            return "constante_int";
-        } else if (id == 18) {
-            return "constante_float";
-        } else if (id == 19) {
-            return "constante_string";
-        } else if (id >= 3 && id <= 15) {
-            return "palavra reservada";
-        } else if (id >= 20 && id <= 35) {
-            return "símbolo especial";
-        }
-
-        return null;
-    }
-
-    private void verificarPalavraReservadaInvalida(Token token) throws LexicalError {
-        if (getClasse(token.getId()) == null) {
-            throw new LexicalError("palavra reservada inválida", token.getPosition());
-        }
-    }
-
+    
     private String gerarMensagemDeErro(LexicalError e) {
 
         String linhaErro = "linha " + leitorDeLinha.getLinhaDoTokenAtual(e.getPosition()) + ": ";

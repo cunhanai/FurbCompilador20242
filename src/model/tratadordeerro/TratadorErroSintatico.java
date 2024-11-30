@@ -5,6 +5,7 @@
 package model.tratadordeerro;
 
 import model.erro.SyntaticError;
+import model.lexico.resources.Token;
 
 /**
  *
@@ -12,6 +13,12 @@ import model.erro.SyntaticError;
  */
 public class TratadorErroSintatico extends TratadorErro<SyntaticError>{
 
+    private Token currentToken;
+
+    public void setCurrentToken(Token currentToken) {
+        this.currentToken = currentToken;
+    }
+    
     public TratadorErroSintatico(String editorText) {
         super.setEditorText(editorText);
     }
@@ -21,7 +28,7 @@ public class TratadorErroSintatico extends TratadorErro<SyntaticError>{
         String linhaErro = super.gerarLinhaErro(e.getPosition());
         int tamanhoEspacamento = gerarTamanhoEspacamentoEsperado(linhaErro);
 
-        return linhaErro + "encontrado " + super.getLexemaErro(e.getPosition()) + gerarTokensEsperados(tamanhoEspacamento, e.getMessage());
+        return linhaErro + "encontrado " + currentToken.getLexeme() + gerarTokensEsperados(tamanhoEspacamento, e.getMessage());
     }
     
     private int gerarTamanhoEspacamentoEsperado(String linhaErro){
