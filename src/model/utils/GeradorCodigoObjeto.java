@@ -21,12 +21,17 @@ public class GeradorCodigoObjeto {
     private List<String> codigoObjeto;
     private Stack<TiposExpressoes> pilhaTipos;
     private Stack<String> pilhaRotulos;
+    private int quantidadeRotulos;
     private List<Token> listaIdentificadores;
     private List<Token> tabelaSimbolos;
 
     public GeradorCodigoObjeto() {
+        operadorRelacional = "";
         codigoObjeto = new LinkedList<>();
         pilhaTipos = new Stack<>();
+        //pilhaRotulos;
+        quantidadeRotulos = 0;
+        listaIdentificadores = new LinkedList<>();
         tabelaSimbolos = new LinkedList<>();
     }
 
@@ -53,9 +58,23 @@ public class GeradorCodigoObjeto {
         codigoObjeto.add("}");
         codigoObjeto.add("}");
     }
-    
+
     // #102
-    
+    public void inserirIdentificadorNaLista() throws SemanticError {
+        for (Token identificador : listaIdentificadores) {
+            String lexema = identificador.getLexeme();
+
+            if (identificadorJaExiste(identificador)) {
+                throw new SemanticError(lexema + " já declarado", identificador.getPosition());
+            } else {
+                tabelaSimbolos.add(identificador);
+                TiposExpressoes tipoIdentificador = getTipoIdentificador(identificador);
+                codigoObjeto.add(TradutorCodigoObjeto.declararIdentificador(tipoIdentificador, lexema));
+            }
+        }
+        listaIdentificadores.clear();
+    }
+
     // #103
     public void armazenarValorNoIdentificador() throws SemanticError {
         TiposExpressoes tipo = pilhaTipos.pop();
@@ -64,18 +83,40 @@ public class GeradorCodigoObjeto {
             tipo = TiposExpressoes.FLOAT64;
         }
         int quantidadeIdentificadores = listaIdentificadores.size();
-        
+
         for (int i = 0; i < quantidadeIdentificadores - 1; i++) {
             codigoObjeto.add(TradutorCodigoObjeto.duplicarTopoDaPilha());
         }
-        
+
         for (Token identificador : listaIdentificadores) {
             if (identificadorJaExiste(identificador)) {
                 codigoObjeto.add(TradutorCodigoObjeto.armazenarValorNoIdentificador(identificador.getLexeme()));
             } else {
-                throw new SemanticError(identificador + " não declarado", identificador.getPosition());
+                throw new SemanticError(identificador.getLexeme() + " não declarado", identificador.getPosition());
             }
         }
+        listaIdentificadores.clear();
+    }
+
+    // #105
+    public void armazenarEntradaNoIdentificador(Token identificador) throws SemanticError {
+        if (identificadorJaExiste(identificador)) {
+            codigoObjeto.add(TradutorCodigoObjeto.lerEntrada());
+            TiposExpressoes tipoIdentificador = getTipoIdentificador(identificador);
+            if (tipoIdentificador != TiposExpressoes.STRING) {
+                codigoObjeto.add(TradutorCodigoObjeto.fazerParseString(tipoIdentificador));
+            }
+            codigoObjeto.add(TradutorCodigoObjeto.armazenarValorNoIdentificador(identificador.getLexeme()));
+        } else {
+            throw new SemanticError(identificador.getLexeme() + " não declarado", identificador.getPosition());
+        }
+    }
+
+    // # 106
+    public void enviarMensagemNaLeitura(Token token) {
+        String lexema = token.getLexeme();
+        codigoObjeto.add(TradutorCodigoObjeto.carregarValorConstanteString(lexema));
+        codigoObjeto.add(TradutorCodigoObjeto.escreverNoConsole(TiposExpressoes.STRING));
     }
 
     // #104
@@ -210,19 +251,20 @@ public class GeradorCodigoObjeto {
         String lexema = token.getLexeme();
         if (identificadorJaExiste(token)) {
             codigoObjeto.add(TradutorCodigoObjeto.carregarIdentificador(lexema));
+            TiposExpressoes tipoIdentificador = getTipoIdentificador(token);
 
-            switch (lexema.charAt(0)) {
-                case 'i':
+            switch (tipoIdentificador) {
+                case INT64:
                     pilhaTipos.push(TiposExpressoes.INT64);
                     codigoObjeto.add(TradutorCodigoObjeto.converterIntParaFloat());
                     break;
-                case 'f':
+                case FLOAT64:
                     pilhaTipos.push(TiposExpressoes.FLOAT64);
                     break;
-                case 'b':
+                case BOOL:
                     pilhaTipos.push(TiposExpressoes.BOOL);
                     break;
-                case 's':
+                case STRING:
                     pilhaTipos.push(TiposExpressoes.STRING);
                     break;
             }
@@ -259,7 +301,7 @@ public class GeradorCodigoObjeto {
         codigoObjeto.add(TradutorCodigoObjeto.gerarMultiplicacao());
     }
 
-    public TiposExpressoes calcularTipoResultante(TiposExpressoes operando1, TiposExpressoes operando2) {
+    private TiposExpressoes calcularTipoResultante(TiposExpressoes operando1, TiposExpressoes operando2) {
         if (operando1 == TiposExpressoes.FLOAT64 || operando2 == TiposExpressoes.FLOAT64) {
             return TiposExpressoes.FLOAT64;
         } else {
@@ -267,7 +309,7 @@ public class GeradorCodigoObjeto {
         }
     }
 
-    public boolean identificadorJaExiste(Token identificador) {
+    private boolean identificadorJaExiste(Token identificador) {
         for (Token identificadorDeclarado : tabelaSimbolos) {
             String lexemaIdentificadorNovo = identificador.getLexeme();
             String lexemaIdentificadorDeclarado = identificadorDeclarado.getLexeme();
@@ -278,4 +320,24 @@ public class GeradorCodigoObjeto {
         return false;
     }
 
+    private TiposExpressoes getTipoIdentificador(Token identificador) {
+        String lexema = identificador.getLexeme();
+        switch (lexema.charAt(0)) {
+            case 'i':
+                return TiposExpressoes.INT64;
+            case 'f':
+                return TiposExpressoes.FLOAT64;
+            case 'b':
+                return TiposExpressoes.BOOL;
+            case 's':
+                return TiposExpressoes.STRING;
+        }
+        return null;
+    }
+
+    private String gerarNovoRotulo() {
+        String rotulo = "rotulo" + String.valueOf(quantidadeRotulos);
+        quantidadeRotulos++;
+        return rotulo;
+    }
 }

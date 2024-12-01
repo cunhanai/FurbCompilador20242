@@ -5,6 +5,7 @@
 package model.utils;
 
 import model.semantico.resources.TiposExpressoes;
+import static model.semantico.resources.TiposExpressoes.INT64;
 
 /**
  *
@@ -55,6 +56,13 @@ public final class TradutorCodigoObjeto {
         return traduzido;
     }
 
+    public static String declararIdentificador(TiposExpressoes tipoIdentificador, String identificador) {
+        String tipo = converterTipoExpressaoParaString(tipoIdentificador);
+        String traduzido = ".locals(" + tipo + " " + identificador + ")";
+
+        return traduzido;
+    }
+
     public static String carregarValorConstanteFloat(String lexema) {
         String traduzido = "ldc.i8 " + lexema;
 
@@ -95,10 +103,10 @@ public final class TradutorCodigoObjeto {
 
         return traduzido;
     }
-    
+
     public static String gerarOuExclusivo() {
         String traduzido = "xor";
-        
+
         return traduzido;
     }
 
@@ -137,47 +145,61 @@ public final class TradutorCodigoObjeto {
 
         return traduzido;
     }
-    
+
     public static String gerarOperadorE() {
         String traduzido = "and";
 
         return traduzido;
     }
-    
+
     public static String gerarOperadorOu() {
         String traduzido = "or";
 
         return traduzido;
     }
-    
+
     public static String carregarIdentificador(String lexema) {
-        String traduzido = "ldcloc " + lexema;
+        String traduzido = "ldloc " + lexema;
 
         return traduzido;
     }
 
     public static String escreverNoConsole(TiposExpressoes tipoExpressao) {
-        String tipo = tipoExpressao.toString().toLowerCase();
+        String tipo = converterTipoExpressaoParaString(tipoExpressao);
         String traduzido = "call void [mscorlib]System.Console::Write(" + tipo + ")";
 
         return traduzido;
     }
-    
+
+    public static String lerEntrada() {
+        String traduzido = "call string [mscorlib]System.Console::ReadLine()";
+
+        return traduzido;
+    }
+
     public static String duplicarTopoDaPilha() {
         String traduzido = "dup";
 
         return traduzido;
     }
-    
+
     public static String armazenarValorNoIdentificador(String identificador) {
         String traduzido = "stloc " + identificador;
 
         return traduzido;
     }
-    
+
     public static String escreverNoConsoleQuebraLinha(TiposExpressoes tipoExpressao) {
-        String tipo = tipoExpressao.toString().toLowerCase();
+        String tipo = converterTipoExpressaoParaString(tipoExpressao);
         String traduzido = "call void [mscorlib]System.Console::WriteLine(" + tipo + ")";
+
+        return traduzido;
+    }
+
+    public static String fazerParseString(TiposExpressoes tipoExpressao) {
+        String tipo = converterTipoExpressaoParaString(tipoExpressao);
+        String classe = converterTipoExpressaoParaClasse(tipoExpressao);
+        String traduzido = "call " + tipo + " [mscorlib]System." + classe + "::Parse(string)";
 
         return traduzido;
     }
@@ -188,4 +210,27 @@ public final class TradutorCodigoObjeto {
         return traduzido;
     }
 
+    private static String converterTipoExpressaoParaString(TiposExpressoes tipoExpressao) {
+        String tipo = tipoExpressao.toString().toLowerCase();
+        return tipo;
+    }
+
+    private static String converterTipoExpressaoParaClasse(TiposExpressoes tipoExpressao) {
+        String tipo = "";
+
+        switch (tipoExpressao) {
+            case INT64:
+                tipo = "Int64";
+                break;
+            case FLOAT64:
+                tipo = "Double";
+                break;
+            case BOOL:
+                tipo = "Boolean";
+                break;
+            default:
+                throw new AssertionError();
+        }
+        return tipo;
+    }
 }

@@ -33,7 +33,7 @@ public class SemanticoHandler extends Semantico {
                 geradorCodigoObjeto.finalizarPrograma();
                 break;
             case 102:
-                
+                geradorCodigoObjeto.inserirIdentificadorNaLista();
                 break;
             case 103:
                 geradorCodigoObjeto.armazenarValorNoIdentificador();
@@ -42,10 +42,10 @@ public class SemanticoHandler extends Semantico {
                 geradorCodigoObjeto.guardarIdentificador(token);
                 break;
             case 105:
-                // PARTE 12
+                geradorCodigoObjeto.armazenarEntradaNoIdentificador(token);
                 break;
             case 106:
-                // PARTE 12
+                geradorCodigoObjeto.enviarMensagemNaLeitura(token);
                 break;
             case 107:
                 geradorCodigoObjeto.escreverNoConsoleQuebraLinha();
@@ -91,6 +91,9 @@ public class SemanticoHandler extends Semantico {
                 break;
             case 121:
                 geradorCodigoObjeto.guardarOperadorRelacional(token);
+                break;
+            case 122:
+                geradorCodigoObjeto.realizarOperacaoRelacional();
                 break;
             case 123:
                 geradorCodigoObjeto.gerarAdicao();
