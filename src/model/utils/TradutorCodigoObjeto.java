@@ -209,6 +209,12 @@ public final class TradutorCodigoObjeto {
 
         return traduzido;
     }
+    
+    public static String compararTrue(String br) {
+        String traduzido = "brtrue " + br;
+        
+        return traduzido;
+    }
 
     private static String converterTipoExpressaoParaString(TiposExpressoes tipoExpressao) {
         String tipo = tipoExpressao.toString().toLowerCase();
@@ -232,5 +238,17 @@ public final class TradutorCodigoObjeto {
                 throw new AssertionError();
         }
         return tipo;
+    }
+
+    public static String compararFalse(String br) {
+        String traduzido = "brfalse " + br;
+        
+        return traduzido;
+    }
+    
+    public static String adicionarRotulo(String rotulo) {
+        String traduzido = rotulo + ": ";
+        
+        return traduzido;
     }
 }

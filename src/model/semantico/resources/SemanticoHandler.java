@@ -54,13 +54,13 @@ public class SemanticoHandler extends Semantico {
                 geradorCodigoObjeto.escreverNoConsole();
                 break;
             case 109:
-                // PARTE 13
+                geradorCodigoObjeto.gerarIf();
                 break;
             case 110:
-                // PARTE 13
+                geradorCodigoObjeto.gerarElif();
                 break;
             case 111:
-                // PARTE 13
+                geradorCodigoObjeto.gerarElse();
                 break;
             case 112:
                 // PARTE 13
