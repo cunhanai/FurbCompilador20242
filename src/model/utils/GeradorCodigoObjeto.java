@@ -7,6 +7,7 @@ package model.utils;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
+import model.erro.SemanticError;
 import model.lexico.resources.Token;
 import model.semantico.resources.TiposExpressoes;
 
@@ -51,6 +52,41 @@ public class GeradorCodigoObjeto {
         codigoObjeto.add(TradutorCodigoObjeto.retornarMetodo());
         codigoObjeto.add("}");
         codigoObjeto.add("}");
+    }
+
+    // #103
+    public void guardarValorNoIdentificador() throws SemanticError {
+        TiposExpressoes tipo = pilhaTipos.pop();
+        if (tipo == TiposExpressoes.INT64) {
+            codigoObjeto.add(TradutorCodigoObjeto.converterIntParaFloat());
+            tipo = TiposExpressoes.FLOAT64;
+        }
+        int quantidadeIdentificadores = listaIdentificadores.size();
+        
+        for (int i = 0; i < quantidadeIdentificadores - 1; i++) {
+            codigoObjeto.add(TradutorCodigoObjeto.duplicarTopoDaPilha());
+        }
+        
+        for (String identificador : listaIdentificadores) {
+            if (identificadorJaExiste(identificador)) {
+                codigoObjeto.add(TradutorCodigoObjeto.armazenarValorNoIdentificador(identificador));
+            } else {
+                throw new SemanticError(identificador + " não declarado", 0); //CORRIGIR POSICAO
+            }
+        }
+    }
+
+    // #104
+    public void guardarIdentificador(Token token) {
+        listaIdentificadores.add(token.getLexeme());
+    }
+
+    // #107
+    public void escreverNoConsoleQuebraLinha() {
+        String escreverNoConsole = codigoObjeto.removeLast();
+        escreverNoConsole = escreverNoConsole.replaceAll("Write", "WriteLine");
+
+        codigoObjeto.add(escreverNoConsole);
     }
 
     // #108
@@ -167,11 +203,12 @@ public class GeradorCodigoObjeto {
         codigoObjeto.add(TradutorCodigoObjeto.gerarDivisao());
     }
 
-    public void carregarIdentificador(Token token) {
+    // #127
+    public void carregarIdentificador(Token token) throws SemanticError {
         String lexema = token.getLexeme();
         if (identificadorJaExiste(lexema)) {
             codigoObjeto.add(TradutorCodigoObjeto.carregarIdentificador(lexema));
-                       
+
             switch (lexema.charAt(0)) {
                 case 'i':
                     pilhaTipos.push(TiposExpressoes.INT64);
@@ -189,7 +226,7 @@ public class GeradorCodigoObjeto {
             }
 
         } else {
-            // erro
+            throw new SemanticError(lexema + " não declarado", token.getPosition());
         }
     }
 

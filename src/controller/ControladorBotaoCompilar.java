@@ -13,6 +13,7 @@ import model.lexico.resources.Token;
 import model.semantico.resources.SemanticoHandler;
 import model.tratadordeerro.TratadorErroSintatico;
 import model.sintatico.resources.SintaticoExtendido;
+import model.tratadordeerro.TratadorErroSemantico;
 import model.utils.GerenciadorDeArquivoIl;
 
 /**
@@ -27,6 +28,7 @@ public class ControladorBotaoCompilar {
     private SemanticoHandler semantico;
     private TratadorErroLexico tratadorErroLexico;
     private TratadorErroSintatico tratadorErroSintatico;
+    private TratadorErroSemantico tratadorErroSemantico;
     private GerenciadorDeArquivoIl gerenciadorDeArquivoIl;
     
     public ControladorBotaoCompilar(String editorText, String localArquivo) {
@@ -36,6 +38,7 @@ public class ControladorBotaoCompilar {
         semantico = new SemanticoHandler();
         tratadorErroLexico = new TratadorErroLexico(editorText);
         tratadorErroSintatico = new TratadorErroSintatico(editorText);
+        tratadorErroSemantico = new TratadorErroSemantico(editorText);
         gerenciadorDeArquivoIl = new GerenciadorDeArquivoIl(localArquivo);
     }
     
@@ -52,7 +55,7 @@ public class ControladorBotaoCompilar {
             tratadorErroSintatico.setCurrentToken(currentToken);
             return tratadorErroSintatico.gerarMensagemDeErro(e);	
         } catch (SemanticError e) {
-            //Trata erros semânticos
+            return tratadorErroSemantico.gerarMensagemDeErro(e);
         }        
         return "programa compilado com sucesso";
     }

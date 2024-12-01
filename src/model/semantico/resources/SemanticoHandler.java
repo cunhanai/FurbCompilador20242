@@ -32,8 +32,50 @@ public class SemanticoHandler extends Semantico {
             case 101:
                 geradorCodigoObjeto.finalizarPrograma();
                 break;
+            case 103:
+                geradorCodigoObjeto.armazenarValorNoIdentificador();
+                break;
+            case 104:
+                geradorCodigoObjeto.guardarIdentificador(token);
+                break;
+            case 105:
+                // PARTE 12
+                break;
+            case 106:
+                // PARTE 12
+                break;
+            case 107:
+                geradorCodigoObjeto.escreverNoConsoleQuebraLinha();
+                break;
             case 108:
                 geradorCodigoObjeto.escreverNoConsole();
+                break;
+            case 109:
+                // PARTE 13
+                break;
+            case 110:
+                // PARTE 13
+                break;
+            case 111:
+                // PARTE 13
+                break;
+            case 112:
+                // PARTE 13
+                break;
+            case 113:
+                // PARTE 14 e 15
+                break;
+            case 114:
+                // PARTE 14
+                break;
+            case 115:
+                // PARTE 15
+                break;
+            case 116:
+                // PARTE 6
+                break;
+            case 117:
+                // PARTE 6
                 break;
             case 118:
                 geradorCodigoObjeto.empilharBoolean(true);
@@ -58,6 +100,9 @@ public class SemanticoHandler extends Semantico {
                 break;
             case 126:
                 geradorCodigoObjeto.gerarDivisao();
+                break;
+            case 127:
+                geradorCodigoObjeto.carregarIdentificador(token);
                 break;
             case 128:
                 geradorCodigoObjeto.empilharInt64(token);

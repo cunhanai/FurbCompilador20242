@@ -162,6 +162,25 @@ public final class TradutorCodigoObjeto {
 
         return traduzido;
     }
+    
+    public static String duplicarTopoDaPilha() {
+        String traduzido = "dup";
+
+        return traduzido;
+    }
+    
+    public static String armazenarValorNoIdentificador(String identificador) {
+        String traduzido = "stloc " + identificador;
+
+        return traduzido;
+    }
+    
+    public static String escreverNoConsoleQuebraLinha(TiposExpressoes tipoExpressao) {
+        String tipo = tipoExpressao.toString().toLowerCase();
+        String traduzido = "call void [mscorlib]System.Console::WriteLine(" + tipo + ")";
+
+        return traduzido;
+    }
 
     public static String retornarMetodo() {
         String traduzido = "ret";
