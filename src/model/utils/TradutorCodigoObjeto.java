@@ -4,7 +4,6 @@
  */
 package model.utils;
 
-import model.lexico.resources.Token;
 import model.semantico.resources.TiposExpressoes;
 
 /**
@@ -56,9 +55,50 @@ public final class TradutorCodigoObjeto {
         return traduzido;
     }
 
-    public static String carregarValorConstante(Token token) {
-        String traduzido = "ldc.i8 " + token.getLexeme();
+    public static String carregarValorConstanteFloat(String lexema) {
+        String traduzido = "ldc.i8 " + lexema;
 
+        return traduzido;
+    }
+
+    public static String carregarValorConstanteString(String lexema) {
+        String traduzido = "ldstr " + lexema;
+
+        return traduzido;
+    }
+
+    public static String carregarValorConstanteBoolean(Boolean valorBooleano) {
+        String traduzido = "ldc.i4.";
+        if (valorBooleano) {
+            traduzido += "1";
+        } else {
+            traduzido += "0";
+        }
+
+        return traduzido;
+    }
+
+    public static String gerarIgualA() {
+        String traduzido = "ceq";
+
+        return traduzido;
+    }
+
+    public static String gerarMenorQue() {
+        String traduzido = "clt";
+
+        return traduzido;
+    }
+
+    public static String gerarMaiorQue() {
+        String traduzido = "cgt";
+
+        return traduzido;
+    }
+    
+    public static String gerarOuExclusivo() {
+        String traduzido = "xor";
+        
         return traduzido;
     }
 
@@ -73,10 +113,46 @@ public final class TradutorCodigoObjeto {
 
         return traduzido;
     }
-    
+
     public static String gerarAdicao() {
         String traduzido = "add";
-        
+
+        return traduzido;
+    }
+
+    public static String gerarSubtracao() {
+        String traduzido = "sub";
+
+        return traduzido;
+    }
+
+    public static String gerarMultiplicacao() {
+        String traduzido = "mul";
+
+        return traduzido;
+    }
+
+    public static String gerarDivisao() {
+        String traduzido = "div";
+
+        return traduzido;
+    }
+    
+    public static String gerarOperadorE() {
+        String traduzido = "and";
+
+        return traduzido;
+    }
+    
+    public static String gerarOperadorOu() {
+        String traduzido = "or";
+
+        return traduzido;
+    }
+    
+    public static String carregarLexema(String lexema) {
+        String traduzido = "ldcloc " + lexema;
+
         return traduzido;
     }
 
@@ -86,10 +162,10 @@ public final class TradutorCodigoObjeto {
 
         return traduzido;
     }
-    
-    public static String retornarMetodo(){
+
+    public static String retornarMetodo() {
         String traduzido = "ret";
-        
+
         return traduzido;
     }
 

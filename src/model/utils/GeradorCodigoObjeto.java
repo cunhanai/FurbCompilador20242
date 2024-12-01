@@ -22,16 +22,18 @@ public class GeradorCodigoObjeto {
     private Stack<String> pilhaRotulos;
     private List<String> listaIdentificadores;
     private List<String> tabelaSimbolos;
-    
+
     public GeradorCodigoObjeto() {
         codigoObjeto = new LinkedList<>();
         pilhaTipos = new Stack<>();
+        tabelaSimbolos = new LinkedList<>();
     }
 
     public List<String> getCodigoObjeto() {
         return codigoObjeto;
     }
 
+    // #100
     public void gerarCabecalho(String nomeArquivo, String nomeClasse, String nomeMetodoPrincipal) {
         codigoObjeto.add(TradutorCodigoObjeto.declararMscorlib());
         codigoObjeto.add(TradutorCodigoObjeto.declararNomeCodigo(nomeArquivo));
@@ -44,39 +46,178 @@ public class GeradorCodigoObjeto {
         codigoObjeto.add("");
     }
 
-    public void empilharInt64(Token token) {
-        pilhaTipos.push(TiposExpressoes.INT64);
-        codigoObjeto.add(TradutorCodigoObjeto.carregarValorConstante(token));
-        codigoObjeto.add(TradutorCodigoObjeto.converterIntParaFloat());
+    // #101
+    public void finalizarPrograma() {
+        codigoObjeto.add(TradutorCodigoObjeto.retornarMetodo());
+        codigoObjeto.add("}");
+        codigoObjeto.add("}");
     }
 
-    public void empilharFloat64(Token token) {
-        pilhaTipos.push(TiposExpressoes.FLOAT64);
-        codigoObjeto.add(TradutorCodigoObjeto.carregarValorConstante(token));
-    }
-
-    public void gerarAdicao() {
-        TiposExpressoes operando1 = pilhaTipos.pop();
-        TiposExpressoes operando2 = pilhaTipos.pop();
-        TiposExpressoes operadorResultante = calcularTipoResultante(operando1, operando2);
-        pilhaTipos.push(operadorResultante);
-        
-        codigoObjeto.add(TradutorCodigoObjeto.gerarAdicao());
-    }
-
+    // #108
     public void escreverNoConsole() {
         TiposExpressoes tipo = pilhaTipos.pop();
-        if (tipo == tipo.INT64) {
+        if (tipo == TiposExpressoes.INT64) {
             codigoObjeto.add(TradutorCodigoObjeto.converterIntParaFloat());
             tipo = TiposExpressoes.FLOAT64;
         }
         codigoObjeto.add(TradutorCodigoObjeto.escreverNoConsole(tipo));
     }
 
-    public void finalizarPrograma() {
-        codigoObjeto.add(TradutorCodigoObjeto.retornarMetodo());
-        codigoObjeto.add("}");
-        codigoObjeto.add("}");
+    // #116
+    public void gerarOperacaoE() {
+        TiposExpressoes tipoOperador1 = pilhaTipos.pop();
+        TiposExpressoes tipoOperador2 = pilhaTipos.pop();
+        TiposExpressoes tipoResultante = calcularTipoResultante(tipoOperador1, tipoOperador2);
+        pilhaTipos.push(tipoResultante);
+
+        codigoObjeto.add(TradutorCodigoObjeto.gerarOperadorE());
+    }
+
+    // #117
+    public void gerarOperacaoOu() {
+        TiposExpressoes tipoOperador1 = pilhaTipos.pop();
+        TiposExpressoes tipoOperador2 = pilhaTipos.pop();
+        TiposExpressoes tipoResultante = calcularTipoResultante(tipoOperador1, tipoOperador2);
+        pilhaTipos.push(tipoResultante);
+
+        codigoObjeto.add(TradutorCodigoObjeto.gerarOperadorOu());
+    }
+
+    // #118 #119
+    public void empilharBoolean(Boolean valorBooleano) {
+        pilhaTipos.push(TiposExpressoes.BOOL);
+        codigoObjeto.add(TradutorCodigoObjeto.carregarValorConstanteBoolean(valorBooleano));
+    }
+
+    // #120
+    public void realizarNegacao() {
+        codigoObjeto.add(TradutorCodigoObjeto.carregarValorConstanteBoolean(true));
+        codigoObjeto.add(TradutorCodigoObjeto.gerarOuExclusivo());
+    }
+
+    // #121
+    public void guardarOperadorRelacional(Token token) {
+        operadorRelacional = token.getLexeme();
+    }
+
+    // #122
+    public void realizarOperacaoRelacional() {
+        TiposExpressoes tipoOperador1 = pilhaTipos.pop();
+        TiposExpressoes tipoOperador2 = pilhaTipos.pop();
+        TiposExpressoes tipoResultante = calcularTipoResultante(tipoOperador1, tipoOperador2);
+        pilhaTipos.push(tipoResultante);
+
+        switch (operadorRelacional) {
+            case "==":
+                codigoObjeto.add(TradutorCodigoObjeto.gerarIgualA());
+                break;
+            case "!=":
+                codigoObjeto.add(TradutorCodigoObjeto.gerarIgualA());
+                codigoObjeto.add(TradutorCodigoObjeto.carregarValorConstanteBoolean(false));
+                codigoObjeto.add(TradutorCodigoObjeto.gerarIgualA());
+                break;
+            case ">":
+                codigoObjeto.add(TradutorCodigoObjeto.gerarMaiorQue());
+                break;
+            case "<":
+                codigoObjeto.add(TradutorCodigoObjeto.gerarMenorQue());
+                break;
+        }
+
+        operadorRelacional = "";
+    }
+
+    // #123
+    public void gerarAdicao() {
+        TiposExpressoes operando1 = pilhaTipos.pop();
+        TiposExpressoes operando2 = pilhaTipos.pop();
+        TiposExpressoes operadorResultante = calcularTipoResultante(operando1, operando2);
+        pilhaTipos.push(operadorResultante);
+
+        codigoObjeto.add(TradutorCodigoObjeto.gerarAdicao());
+    }
+
+    // #124
+    public void gerarSubtracao() {
+        TiposExpressoes operando1 = pilhaTipos.pop();
+        TiposExpressoes operando2 = pilhaTipos.pop();
+        TiposExpressoes operadorResultante = calcularTipoResultante(operando1, operando2);
+        pilhaTipos.push(operadorResultante);
+
+        codigoObjeto.add(TradutorCodigoObjeto.gerarSubtracao());
+    }
+
+    // #125
+    public void gerarMultiplicacao() {
+        TiposExpressoes operando1 = pilhaTipos.pop();
+        TiposExpressoes operando2 = pilhaTipos.pop();
+        TiposExpressoes operadorResultante = calcularTipoResultante(operando1, operando2);
+        pilhaTipos.push(operadorResultante);
+
+        codigoObjeto.add(TradutorCodigoObjeto.gerarMultiplicacao());
+    }
+
+    // #126
+    public void gerarDivisao() {
+        TiposExpressoes operando1 = pilhaTipos.pop();
+        TiposExpressoes operando2 = pilhaTipos.pop();
+        TiposExpressoes operadorResultante = calcularTipoResultante(operando1, operando2);
+        pilhaTipos.push(operadorResultante);
+
+        codigoObjeto.add(TradutorCodigoObjeto.gerarDivisao());
+    }
+
+    public void carregarIdentificador(Token token) {
+        String lexema = token.getLexeme();
+        if (identificadorJaExiste(lexema)) {
+            codigoObjeto.add(TradutorCodigoObjeto.carregarIdentificador(lexema));
+                       
+            switch (lexema.charAt(0)) {
+                case 'i':
+                    pilhaTipos.push(TiposExpressoes.INT64);
+                    codigoObjeto.add(TradutorCodigoObjeto.converterIntParaFloat());
+                    break;
+                case 'f':
+                    pilhaTipos.push(TiposExpressoes.FLOAT64);
+                    break;
+                case 'b':
+                    pilhaTipos.push(TiposExpressoes.BOOL);
+                    break;
+                case 's':
+                    pilhaTipos.push(TiposExpressoes.STRING);
+                    break;
+            }
+
+        } else {
+            // erro
+        }
+    }
+
+    // #128
+    public void empilharInt64(Token token) {
+        pilhaTipos.push(TiposExpressoes.INT64);
+        codigoObjeto.add(TradutorCodigoObjeto.carregarValorConstanteFloat(token.getLexeme()));
+        codigoObjeto.add(TradutorCodigoObjeto.converterIntParaFloat());
+    }
+
+    // #129
+    public void empilharFloat64(Token token) {
+        pilhaTipos.push(TiposExpressoes.FLOAT64);
+        codigoObjeto.add(TradutorCodigoObjeto.carregarValorConstanteFloat(token.getLexeme()));
+    }
+
+    // #130
+    public void empilharString(Token token) {
+        pilhaTipos.push(TiposExpressoes.STRING);
+        codigoObjeto.add(TradutorCodigoObjeto.carregarValorConstanteString(token.getLexeme()));
+    }
+
+    // #131
+    public void transformarEmNegativo() {
+        TiposExpressoes tipo = pilhaTipos.pop();
+        pilhaTipos.push(tipo);
+        codigoObjeto.add(TradutorCodigoObjeto.carregarValorConstanteFloat("-1"));
+        codigoObjeto.add(TradutorCodigoObjeto.gerarMultiplicacao());
     }
 
     public TiposExpressoes calcularTipoResultante(TiposExpressoes operando1, TiposExpressoes operando2) {
@@ -86,4 +227,14 @@ public class GeradorCodigoObjeto {
             return TiposExpressoes.INT64;
         }
     }
+
+    public boolean identificadorJaExiste(String lexema) {
+        for (String identificadoresRegistrados : tabelaSimbolos) {
+            if (lexema.equals(identificadoresRegistrados)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
