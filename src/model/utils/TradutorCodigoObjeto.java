@@ -187,5 +187,22 @@ public final class TradutorCodigoObjeto {
 
         return traduzido;
     }
+    
+    public static String compararTrue(String br) {
+        String traduzido = "brtrue " + br;
+        
+        return traduzido;
+    }
 
+    public static String compararFalse(String br) {
+        String traduzido = "brfalse " + br;
+        
+        return traduzido;
+    }
+    
+    public static String adicionarRotulo(String rotulo) {
+        String traduzido = rotulo + ": ";
+        
+        return traduzido;
+    }
 }

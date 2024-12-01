@@ -21,12 +21,17 @@ public class GeradorCodigoObjeto {
     private List<String> codigoObjeto;
     private Stack<TiposExpressoes> pilhaTipos;
     private Stack<String> pilhaRotulos;
+    private int quantidadeRotulos;
     private List<Token> listaIdentificadores;
     private List<Token> tabelaSimbolos;
 
     public GeradorCodigoObjeto() {
+        operadorRelacional = "";
         codigoObjeto = new LinkedList<>();
         pilhaTipos = new Stack<>();
+        pilhaRotulos = new Stack<>();
+        quantidadeRotulos = 0;
+        listaIdentificadores = new LinkedList<>();
         tabelaSimbolos = new LinkedList<>();
     }
 
@@ -101,6 +106,40 @@ public class GeradorCodigoObjeto {
         codigoObjeto.add(TradutorCodigoObjeto.escreverNoConsole(tipo));
     }
 
+    // #109
+    public void gerarIf() {
+        String novoRotulo1 = gerarNovoRotulo();
+        pilhaRotulos.push(novoRotulo1);
+        String novoRotulo2 = gerarNovoRotulo();
+        
+        codigoObjeto.add(TradutorCodigoObjeto.compararFalse(novoRotulo2));
+        pilhaRotulos.push(novoRotulo2);
+    }
+    
+    // #110
+    public void gerarElif() {
+        String rotuloDesempilhado2 = pilhaRotulos.pop();
+        String rotuloDesempilhado1 = pilhaRotulos.pop();
+        
+        codigoObjeto.add(TradutorCodigoObjeto.compararFalse(rotuloDesempilhado1));
+        
+        pilhaRotulos.add(rotuloDesempilhado1);
+        
+        codigoObjeto.add(TradutorCodigoObjeto.adicionarRotulo(rotuloDesempilhado2));
+        
+    }
+    
+    // #111
+    public void gerarElse() {
+        String rotulo_desempilhado = pilhaRotulos.pop();
+        codigoObjeto.add(TradutorCodigoObjeto.adicionarRotulo(rotulo_desempilhado));
+    }
+    
+    // #112
+    public void criarRotulo() {
+        String rotulo = gerarNovoRotulo();
+    }
+    
     // #116
     public void gerarOperacaoE() {
         TiposExpressoes tipoOperador1 = pilhaTipos.pop();
@@ -278,4 +317,9 @@ public class GeradorCodigoObjeto {
         return false;
     }
 
+    private String gerarNovoRotulo() {
+        String rotulo = "L" + String.valueOf(quantidadeRotulos + 1);
+        quantidadeRotulos++;
+        return rotulo;
+    }
 }
