@@ -179,6 +179,28 @@ public class GeradorCodigoObjeto {
         pilhaRotulos.push(rotulo);
     }
 
+    // #113
+    public void abreRepeat() {
+        String rotulo = gerarNovoRotulo();
+
+        codigoObjeto.add(rotulo);
+        pilhaRotulos.push(rotulo);
+    }
+
+    // #114
+    public void whileRepeat() {
+        String rotuloDesempilhado = pilhaRotulos.pop();
+
+        codigoObjeto.add(TradutorCodigoObjeto.compararTrue(rotuloDesempilhado));
+    }
+
+    // #115
+    public void untilRepeat() {
+        String rotuloDesempilhado = pilhaRotulos.pop();
+
+        codigoObjeto.add(TradutorCodigoObjeto.compararFalse(rotuloDesempilhado));
+    }
+
     // #116
     public void gerarOperacaoE() {
         TiposExpressoes tipoOperador1 = pilhaTipos.pop();

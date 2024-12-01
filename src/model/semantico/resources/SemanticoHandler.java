@@ -66,13 +66,13 @@ public class SemanticoHandler extends Semantico {
                 geradorCodigoObjeto.criarRotulo();
                 break;
             case 113:
-                // PARTE 14 e 15
+                geradorCodigoObjeto.abreRepeat();
                 break;
             case 114:
-                // PARTE 14
+                geradorCodigoObjeto.whileRepeat();
                 break;
             case 115:
-                // PARTE 15
+                geradorCodigoObjeto.untilRepeat();
                 break;
             case 116:
                geradorCodigoObjeto.gerarOperacaoE();
@@ -120,7 +120,7 @@ public class SemanticoHandler extends Semantico {
                 geradorCodigoObjeto.empilharString(token);
                 break;
             case 131:
-
+                geradorCodigoObjeto.transformarEmNegativo();
                 break;
             default:
                 System.out.println("acao ainda nao implementada");
