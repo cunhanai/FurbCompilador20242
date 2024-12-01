@@ -251,4 +251,10 @@ public final class TradutorCodigoObjeto {
         
         return traduzido;
     }
+    
+    public static String pularParaRotulo(String rotulo) {
+        String traduzido = "br " + rotulo;
+        
+        return traduzido;
+    }
 }

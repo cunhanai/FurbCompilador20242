@@ -155,9 +155,9 @@ public class GeradorCodigoObjeto {
         String rotuloDesempilhado2 = pilhaRotulos.pop();
         String rotuloDesempilhado1 = pilhaRotulos.pop();
 
-        codigoObjeto.add(TradutorCodigoObjeto.compararFalse(rotuloDesempilhado1));
+        codigoObjeto.add(TradutorCodigoObjeto.pularParaRotulo(rotuloDesempilhado1));
 
-        pilhaRotulos.add(rotuloDesempilhado1);
+        pilhaRotulos.push(rotuloDesempilhado1);
 
         codigoObjeto.add(TradutorCodigoObjeto.adicionarRotulo(rotuloDesempilhado2));
 
@@ -166,12 +166,17 @@ public class GeradorCodigoObjeto {
     // #111
     public void gerarElse() {
         String rotulo_desempilhado = pilhaRotulos.pop();
+
         codigoObjeto.add(TradutorCodigoObjeto.adicionarRotulo(rotulo_desempilhado));
     }
 
     // #112
     public void criarRotulo() {
         String rotulo = gerarNovoRotulo();
+
+        codigoObjeto.add(TradutorCodigoObjeto.compararFalse(rotulo));
+
+        pilhaRotulos.push(rotulo);
     }
 
     // #116

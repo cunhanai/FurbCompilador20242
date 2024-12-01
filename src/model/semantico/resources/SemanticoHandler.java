@@ -63,7 +63,7 @@ public class SemanticoHandler extends Semantico {
                 geradorCodigoObjeto.gerarElse();
                 break;
             case 112:
-                // PARTE 13
+                geradorCodigoObjeto.criarRotulo();
                 break;
             case 113:
                 // PARTE 14 e 15
