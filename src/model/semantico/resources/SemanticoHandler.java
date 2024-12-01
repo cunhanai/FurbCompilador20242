@@ -32,6 +32,9 @@ public class SemanticoHandler extends Semantico {
             case 101:
                 geradorCodigoObjeto.finalizarPrograma();
                 break;
+            case 102:
+                
+                break;
             case 103:
                 geradorCodigoObjeto.armazenarValorNoIdentificador();
                 break;
