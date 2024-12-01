@@ -21,8 +21,8 @@ public class GeradorCodigoObjeto {
     private List<String> codigoObjeto;
     private Stack<TiposExpressoes> pilhaTipos;
     private Stack<String> pilhaRotulos;
-    private List<String> listaIdentificadores;
-    private List<String> tabelaSimbolos;
+    private List<Token> listaIdentificadores;
+    private List<Token> tabelaSimbolos;
 
     public GeradorCodigoObjeto() {
         codigoObjeto = new LinkedList<>();
@@ -53,9 +53,11 @@ public class GeradorCodigoObjeto {
         codigoObjeto.add("}");
         codigoObjeto.add("}");
     }
-
+    
+    // #102
+    
     // #103
-    public void guardarValorNoIdentificador() throws SemanticError {
+    public void armazenarValorNoIdentificador() throws SemanticError {
         TiposExpressoes tipo = pilhaTipos.pop();
         if (tipo == TiposExpressoes.INT64) {
             codigoObjeto.add(TradutorCodigoObjeto.converterIntParaFloat());
@@ -67,18 +69,18 @@ public class GeradorCodigoObjeto {
             codigoObjeto.add(TradutorCodigoObjeto.duplicarTopoDaPilha());
         }
         
-        for (String identificador : listaIdentificadores) {
+        for (Token identificador : listaIdentificadores) {
             if (identificadorJaExiste(identificador)) {
-                codigoObjeto.add(TradutorCodigoObjeto.armazenarValorNoIdentificador(identificador));
+                codigoObjeto.add(TradutorCodigoObjeto.armazenarValorNoIdentificador(identificador.getLexeme()));
             } else {
-                throw new SemanticError(identificador + " não declarado", 0); //CORRIGIR POSICAO
+                throw new SemanticError(identificador + " não declarado", identificador.getPosition());
             }
         }
     }
 
     // #104
     public void guardarIdentificador(Token token) {
-        listaIdentificadores.add(token.getLexeme());
+        listaIdentificadores.add(token);
     }
 
     // #107
@@ -206,7 +208,7 @@ public class GeradorCodigoObjeto {
     // #127
     public void carregarIdentificador(Token token) throws SemanticError {
         String lexema = token.getLexeme();
-        if (identificadorJaExiste(lexema)) {
+        if (identificadorJaExiste(token)) {
             codigoObjeto.add(TradutorCodigoObjeto.carregarIdentificador(lexema));
 
             switch (lexema.charAt(0)) {
@@ -265,9 +267,11 @@ public class GeradorCodigoObjeto {
         }
     }
 
-    public boolean identificadorJaExiste(String lexema) {
-        for (String identificadoresRegistrados : tabelaSimbolos) {
-            if (lexema.equals(identificadoresRegistrados)) {
+    public boolean identificadorJaExiste(Token identificador) {
+        for (Token identificadorDeclarado : tabelaSimbolos) {
+            String lexemaIdentificadorNovo = identificador.getLexeme();
+            String lexemaIdentificadorDeclarado = identificadorDeclarado.getLexeme();
+            if (lexemaIdentificadorNovo.equals(lexemaIdentificadorDeclarado)) {
                 return true;
             }
         }
