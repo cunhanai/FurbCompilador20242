@@ -79,8 +79,7 @@ public class GeradorCodigoObjeto {
     public void armazenarValorNoIdentificador() throws SemanticError {
         TiposExpressoes tipo = pilhaTipos.pop();
         if (tipo == TiposExpressoes.INT64) {
-            codigoObjeto.add(TradutorCodigoObjeto.converterIntParaFloat());
-            tipo = TiposExpressoes.FLOAT64;
+            codigoObjeto.add(TradutorCodigoObjeto.converterFloatParaInt());
         }
         int quantidadeIdentificadores = listaIdentificadores.size();
 
@@ -136,8 +135,7 @@ public class GeradorCodigoObjeto {
     public void escreverNoConsole() {
         TiposExpressoes tipo = pilhaTipos.pop();
         if (tipo == TiposExpressoes.INT64) {
-            codigoObjeto.add(TradutorCodigoObjeto.converterIntParaFloat());
-            tipo = TiposExpressoes.FLOAT64;
+            codigoObjeto.add(TradutorCodigoObjeto.converterFloatParaInt());
         }
         codigoObjeto.add(TradutorCodigoObjeto.escreverNoConsole(tipo));
     }
@@ -147,35 +145,35 @@ public class GeradorCodigoObjeto {
         String novoRotulo1 = gerarNovoRotulo();
         pilhaRotulos.push(novoRotulo1);
         String novoRotulo2 = gerarNovoRotulo();
-        
+
         codigoObjeto.add(TradutorCodigoObjeto.compararFalse(novoRotulo2));
         pilhaRotulos.push(novoRotulo2);
     }
-    
+
     // #110
     public void gerarElif() {
         String rotuloDesempilhado2 = pilhaRotulos.pop();
         String rotuloDesempilhado1 = pilhaRotulos.pop();
-        
+
         codigoObjeto.add(TradutorCodigoObjeto.compararFalse(rotuloDesempilhado1));
-        
+
         pilhaRotulos.add(rotuloDesempilhado1);
-        
+
         codigoObjeto.add(TradutorCodigoObjeto.adicionarRotulo(rotuloDesempilhado2));
-        
+
     }
-    
+
     // #111
     public void gerarElse() {
         String rotulo_desempilhado = pilhaRotulos.pop();
         codigoObjeto.add(TradutorCodigoObjeto.adicionarRotulo(rotulo_desempilhado));
     }
-    
+
     // #112
     public void criarRotulo() {
         String rotulo = gerarNovoRotulo();
     }
-    
+
     // #116
     public void gerarOperacaoE() {
         TiposExpressoes tipoOperador1 = pilhaTipos.pop();
