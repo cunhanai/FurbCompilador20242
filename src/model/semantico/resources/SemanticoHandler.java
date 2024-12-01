@@ -36,10 +36,13 @@ public class SemanticoHandler extends Semantico {
                 geradorCodigoObjeto.escreverNoConsole();
                 break;
             case 118:
-                geradorCodigoObjeto.empilharBoolean(Boolean.TRUE);
+                geradorCodigoObjeto.empilharBoolean(true);
                 break;
             case 119:
-                geradorCodigoObjeto.empilharBoolean(Boolean.FALSE);
+                geradorCodigoObjeto.empilharBoolean(false);
+                break;
+            case 120:
+                geradorCodigoObjeto.realizarNegacao();
                 break;
             case 121:
                 geradorCodigoObjeto.guardarOperadorRelacional(token);

@@ -150,7 +150,7 @@ public final class TradutorCodigoObjeto {
         return traduzido;
     }
     
-    public static String carregarLexema(String lexema) {
+    public static String carregarIdentificador(String lexema) {
         String traduzido = "ldcloc " + lexema;
 
         return traduzido;
