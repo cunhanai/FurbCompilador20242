@@ -72,10 +72,10 @@ public class SemanticoHandler extends Semantico {
                 // PARTE 15
                 break;
             case 116:
-                // PARTE 6
+               geradorCodigoObjeto.gerarOperacaoE();
                 break;
             case 117:
-                // PARTE 6
+                geradorCodigoObjeto.gerarOperacaoOu();
                 break;
             case 118:
                 geradorCodigoObjeto.empilharBoolean(true);
