@@ -24,6 +24,7 @@ public class GeradorCodigoObjeto {
     private int quantidadeRotulos;
     private List<Token> listaIdentificadores;
     private List<Token> tabelaSimbolos;
+    private boolean writePrecisaPularLinha;
 
     public GeradorCodigoObjeto() {
         operadorRelacional = "";
@@ -33,6 +34,7 @@ public class GeradorCodigoObjeto {
         quantidadeRotulos = 0;
         listaIdentificadores = new LinkedList<>();
         tabelaSimbolos = new LinkedList<>();
+        writePrecisaPularLinha = false;
     }
 
     public List<String> getCodigoObjeto() {
@@ -125,10 +127,12 @@ public class GeradorCodigoObjeto {
 
     // #107
     public void escreverNoConsoleQuebraLinha() {
-        String escreverNoConsole = codigoObjeto.removeLast();
-        escreverNoConsole = escreverNoConsole.replaceAll("Write", "WriteLine");
+        if (writePrecisaPularLinha) {
+            String escreverNoConsole = codigoObjeto.removeLast();
+            escreverNoConsole = escreverNoConsole.replaceAll("Write", "WriteLine");
 
-        codigoObjeto.add(escreverNoConsole);
+            codigoObjeto.add(escreverNoConsole);
+        }
     }
 
     // #108
@@ -336,6 +340,15 @@ public class GeradorCodigoObjeto {
         pilhaTipos.push(tipo);
         codigoObjeto.add(TradutorCodigoObjeto.carregarValorConstanteFloat("-1"));
         codigoObjeto.add(TradutorCodigoObjeto.gerarMultiplicacao());
+    }
+
+    // #132
+    public void salvarTipoWrite(Token token) {
+        if (token.getLexeme().equals("write")) {
+            writePrecisaPularLinha = false;
+        } else {
+            writePrecisaPularLinha = true;
+        }
     }
 
     private TiposExpressoes calcularTipoResultante(TiposExpressoes operando1, TiposExpressoes operando2) {
