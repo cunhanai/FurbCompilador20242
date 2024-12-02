@@ -183,7 +183,7 @@ public class GeradorCodigoObjeto {
     public void abreRepeat() {
         String rotulo = gerarNovoRotulo();
 
-        codigoObjeto.add(rotulo);
+        codigoObjeto.add(TradutorCodigoObjeto.adicionarRotulo(rotulo));
         pilhaRotulos.push(rotulo);
     }
 
