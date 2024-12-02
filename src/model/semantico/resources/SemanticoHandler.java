@@ -75,10 +75,10 @@ public class SemanticoHandler extends Semantico {
                 geradorCodigoObjeto.untilRepeat();
                 break;
             case 116:
-               geradorCodigoObjeto.gerarOperacaoE();
+               geradorCodigoObjeto.gerarOperacaoE(token);
                 break;
             case 117:
-                geradorCodigoObjeto.gerarOperacaoOu();
+                geradorCodigoObjeto.gerarOperacaoOu(token);
                 break;
             case 118:
                 geradorCodigoObjeto.empilharBoolean(true);
@@ -87,25 +87,25 @@ public class SemanticoHandler extends Semantico {
                 geradorCodigoObjeto.empilharBoolean(false);
                 break;
             case 120:
-                geradorCodigoObjeto.realizarNegacao();
+                geradorCodigoObjeto.realizarNegacao(token);
                 break;
             case 121:
                 geradorCodigoObjeto.guardarOperadorRelacional(token);
                 break;
             case 122:
-                geradorCodigoObjeto.realizarOperacaoRelacional();
+                geradorCodigoObjeto.realizarOperacaoRelacional(token);
                 break;
             case 123:
-                geradorCodigoObjeto.gerarAdicao();
+                geradorCodigoObjeto.gerarAdicao(token);
                 break;
             case 124:
-                geradorCodigoObjeto.gerarSubtracao();
+                geradorCodigoObjeto.gerarSubtracao(token);
                 break;
             case 125:
-                geradorCodigoObjeto.gerarMultiplicacao();
+                geradorCodigoObjeto.gerarMultiplicacao(token);
                 break;
             case 126:
-                geradorCodigoObjeto.gerarDivisao();
+                geradorCodigoObjeto.gerarDivisao(token);
                 break;
             case 127:
                 geradorCodigoObjeto.carregarIdentificador(token);
