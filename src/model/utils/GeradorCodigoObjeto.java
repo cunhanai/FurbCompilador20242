@@ -206,21 +206,19 @@ public class GeradorCodigoObjeto {
     }
 
     // #116
-    public void gerarOperacaoE(Token tokenAtual) throws SemanticError {
-        TiposExpressoes tipoOperador1 = pilhaTipos.pop();
-        TiposExpressoes tipoOperador2 = pilhaTipos.pop();
-        TiposExpressoes tipoResultante = calcularTipoResultante(tokenAtual, tipoOperador1, tipoOperador2, "&&");
-        pilhaTipos.push(tipoResultante);
+    public void gerarOperacaoE() {
+        pilhaTipos.pop();
+        pilhaTipos.pop();
+        pilhaTipos.push(TiposExpressoes.BOOL);
 
         codigoObjeto.add(TradutorCodigoObjeto.gerarOperadorE());
     }
 
     // #117
-    public void gerarOperacaoOu(Token tokenAtual) throws SemanticError {
-        TiposExpressoes tipoOperador1 = pilhaTipos.pop();
-        TiposExpressoes tipoOperador2 = pilhaTipos.pop();
-        TiposExpressoes tipoResultante = calcularTipoResultante(tokenAtual, tipoOperador1, tipoOperador2, "||");
-        pilhaTipos.push(tipoResultante);
+    public void gerarOperacaoOu() {
+        pilhaTipos.pop();
+        pilhaTipos.pop();
+        pilhaTipos.push(TiposExpressoes.BOOL);
 
         codigoObjeto.add(TradutorCodigoObjeto.gerarOperadorOu());
     }
@@ -232,9 +230,8 @@ public class GeradorCodigoObjeto {
     }
 
     // #120
-    public void realizarNegacao(Token tokenAtual) throws SemanticError {
-        TiposExpressoes operador = pilhaTipos.peek();
-        calcularTipoResultante(tokenAtual, operador, "!");
+    public void realizarNegacao() {
+        pilhaTipos.peek();
         codigoObjeto.add(TradutorCodigoObjeto.carregarValorConstanteBoolean(true));
         codigoObjeto.add(TradutorCodigoObjeto.gerarOuExclusivo());
     }
@@ -245,11 +242,10 @@ public class GeradorCodigoObjeto {
     }
 
     // #122
-    public void realizarOperacaoRelacional(Token tokenAtual) throws SemanticError {
-        TiposExpressoes tipoOperador1 = pilhaTipos.pop();
-        TiposExpressoes tipoOperador2 = pilhaTipos.pop();
-        TiposExpressoes tipoResultante = calcularTipoResultante(tokenAtual, tipoOperador1, tipoOperador2, operadorRelacional);
-        pilhaTipos.push(tipoResultante);
+    public void realizarOperacaoRelacional(Token tokenAtual) {
+        pilhaTipos.pop();
+        pilhaTipos.pop();
+        pilhaTipos.push(TiposExpressoes.BOOL);
 
         switch (operadorRelacional) {
             case "==":
@@ -272,41 +268,40 @@ public class GeradorCodigoObjeto {
     }
 
     // #123
-    public void gerarAdicao(Token tokenAtual) throws SemanticError {
+    public void gerarAdicao() throws SemanticError {
         TiposExpressoes operando1 = pilhaTipos.pop();
         TiposExpressoes operando2 = pilhaTipos.pop();
-        TiposExpressoes operadorResultante = calcularTipoResultante(tokenAtual, operando1, operando2, "+");
+        TiposExpressoes operadorResultante = calcularTipoResultante(operando1, operando2);
         pilhaTipos.push(operadorResultante);
 
         codigoObjeto.add(TradutorCodigoObjeto.gerarAdicao());
     }
 
     // #124
-    public void gerarSubtracao(Token tokenAtual) throws SemanticError {
+    public void gerarSubtracao() {
         TiposExpressoes operando1 = pilhaTipos.pop();
         TiposExpressoes operando2 = pilhaTipos.pop();
-        TiposExpressoes operadorResultante = calcularTipoResultante(tokenAtual, operando1, operando2, "-");
+        TiposExpressoes operadorResultante = calcularTipoResultante(operando1, operando2);
         pilhaTipos.push(operadorResultante);
 
         codigoObjeto.add(TradutorCodigoObjeto.gerarSubtracao());
     }
 
     // #125
-    public void gerarMultiplicacao(Token tokenAtual) throws SemanticError {
+    public void gerarMultiplicacao() {
         TiposExpressoes operando1 = pilhaTipos.pop();
         TiposExpressoes operando2 = pilhaTipos.pop();
-        TiposExpressoes operadorResultante = calcularTipoResultante(tokenAtual, operando1, operando2, "*");
+        TiposExpressoes operadorResultante = calcularTipoResultante(operando1, operando2);
         pilhaTipos.push(operadorResultante);
 
         codigoObjeto.add(TradutorCodigoObjeto.gerarMultiplicacao());
     }
 
     // #126
-    public void gerarDivisao(Token tokenAtual) throws SemanticError {
-        TiposExpressoes operando1 = pilhaTipos.pop();
-        TiposExpressoes operando2 = pilhaTipos.pop();
-        TiposExpressoes operadorResultante = calcularTipoResultante(tokenAtual, operando1, operando2, "/");
-        pilhaTipos.push(operadorResultante);
+    public void gerarDivisao() {
+        pilhaTipos.pop();
+        pilhaTipos.pop();
+        pilhaTipos.push(TiposExpressoes.FLOAT64);
 
         codigoObjeto.add(TradutorCodigoObjeto.gerarDivisao());
     }
@@ -359,10 +354,9 @@ public class GeradorCodigoObjeto {
     }
 
     // #131
-    public void transformarEmNegativo(Token tokenAtual) throws SemanticError {
+    public void transformarEmNegativo() {
         TiposExpressoes tipo = pilhaTipos.pop();
-        TiposExpressoes operadorResultante = calcularTipoResultante(tokenAtual, tipo, "-");
-        pilhaTipos.push(operadorResultante);
+        pilhaTipos.push(tipo);
         codigoObjeto.add(TradutorCodigoObjeto.carregarValorConstanteFloat("-1"));
         codigoObjeto.add(TradutorCodigoObjeto.gerarMultiplicacao());
     }
@@ -376,6 +370,15 @@ public class GeradorCodigoObjeto {
         }
     }
 
+    private TiposExpressoes calcularTipoResultante(TiposExpressoes operando1, TiposExpressoes operando2) {
+        if (ehFloat(operando1) || ehFloat(operando2)) {
+            return TiposExpressoes.FLOAT64;
+        } else {
+            return TiposExpressoes.INT64;
+        }
+    }
+
+    /*
     private TiposExpressoes calcularTipoResultante(Token tokenAtual, TiposExpressoes operando1, String operador) throws SemanticError {
         if (ehInt(operando1) && (operador.equals("+") || operador.equals("-"))) {
             return TiposExpressoes.INT64;
@@ -428,7 +431,7 @@ public class GeradorCodigoObjeto {
         }
         throw new SemanticError("Operação inválida: " + operando2 + " " + operador + " " + operando1, tokenAtual.getPosition());
     }
-
+     */
     private boolean ehInt(TiposExpressoes operando) {
         return operando == TiposExpressoes.INT64;
     }

@@ -75,10 +75,10 @@ public class SemanticoHandler extends Semantico {
                 geradorCodigoObjeto.untilRepeat();
                 break;
             case 116:
-               geradorCodigoObjeto.gerarOperacaoE(token);
+               geradorCodigoObjeto.gerarOperacaoE();
                 break;
             case 117:
-                geradorCodigoObjeto.gerarOperacaoOu(token);
+                geradorCodigoObjeto.gerarOperacaoOu();
                 break;
             case 118:
                 geradorCodigoObjeto.empilharBoolean(true);
@@ -87,7 +87,7 @@ public class SemanticoHandler extends Semantico {
                 geradorCodigoObjeto.empilharBoolean(false);
                 break;
             case 120:
-                geradorCodigoObjeto.realizarNegacao(token);
+                geradorCodigoObjeto.realizarNegacao();
                 break;
             case 121:
                 geradorCodigoObjeto.guardarOperadorRelacional(token);
@@ -96,16 +96,16 @@ public class SemanticoHandler extends Semantico {
                 geradorCodigoObjeto.realizarOperacaoRelacional(token);
                 break;
             case 123:
-                geradorCodigoObjeto.gerarAdicao(token);
+                geradorCodigoObjeto.gerarAdicao();
                 break;
             case 124:
-                geradorCodigoObjeto.gerarSubtracao(token);
+                geradorCodigoObjeto.gerarSubtracao();
                 break;
             case 125:
-                geradorCodigoObjeto.gerarMultiplicacao(token);
+                geradorCodigoObjeto.gerarMultiplicacao();
                 break;
             case 126:
-                geradorCodigoObjeto.gerarDivisao(token);
+                geradorCodigoObjeto.gerarDivisao();
                 break;
             case 127:
                 geradorCodigoObjeto.carregarIdentificador(token);
@@ -120,7 +120,7 @@ public class SemanticoHandler extends Semantico {
                 geradorCodigoObjeto.empilharString(token);
                 break;
             case 131:
-                geradorCodigoObjeto.transformarEmNegativo(token);
+                geradorCodigoObjeto.transformarEmNegativo();
                 break;
             case 132:
                 geradorCodigoObjeto.salvarTipoWrite(token);
