@@ -120,7 +120,7 @@ public class SemanticoHandler extends Semantico {
                 geradorCodigoObjeto.empilharString(token);
                 break;
             case 131:
-                geradorCodigoObjeto.transformarEmNegativo();
+                geradorCodigoObjeto.transformarEmNegativo(token);
                 break;
             case 132:
                 geradorCodigoObjeto.salvarTipoWrite(token);

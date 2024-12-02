@@ -342,7 +342,7 @@ public class GeradorCodigoObjeto {
     // #128
     public void empilharInt64(Token token) {
         pilhaTipos.push(TiposExpressoes.INT64);
-        codigoObjeto.add(TradutorCodigoObjeto.carregarValorConstanteFloat(token.getLexeme()));
+        codigoObjeto.add(TradutorCodigoObjeto.carregarValorConstanteInt(token.getLexeme()));
         codigoObjeto.add(TradutorCodigoObjeto.converterIntParaFloat());
     }
 
@@ -359,9 +359,10 @@ public class GeradorCodigoObjeto {
     }
 
     // #131
-    public void transformarEmNegativo() {
+    public void transformarEmNegativo(Token tokenAtual) throws SemanticError {
         TiposExpressoes tipo = pilhaTipos.pop();
-        pilhaTipos.push(tipo);
+        TiposExpressoes operadorResultante = calcularTipoResultante(tokenAtual, tipo, "-");
+        pilhaTipos.push(operadorResultante);
         codigoObjeto.add(TradutorCodigoObjeto.carregarValorConstanteFloat("-1"));
         codigoObjeto.add(TradutorCodigoObjeto.gerarMultiplicacao());
     }
@@ -376,7 +377,13 @@ public class GeradorCodigoObjeto {
     }
 
     private TiposExpressoes calcularTipoResultante(Token tokenAtual, TiposExpressoes operando1, String operador) throws SemanticError {
-        if (ehBoolean(operando1) && operador == "!") {
+        if (ehInt(operando1) && (operador.equals("+") || operador.equals("-"))) {
+            return TiposExpressoes.INT64;
+        }
+        if (ehFloat(operando1) && (operador.equals("+") || operador.equals("-"))) {
+            return TiposExpressoes.FLOAT64;
+        }
+        if (ehBoolean(operando1) && operador.equals("!")) {
             return TiposExpressoes.BOOL;
         }
         throw new SemanticError("Operação inválida: " + operador + " " + operando1, tokenAtual.getPosition());

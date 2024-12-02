@@ -62,6 +62,13 @@ public final class TradutorCodigoObjeto {
 
         return traduzido;
     }
+    
+    public static String carregarValorConstanteInt(String lexema) {
+        String traduzido = "ldc.i8 " + lexema;
+
+        return traduzido;
+    }
+
 
     public static String carregarValorConstanteFloat(String lexema) {
         String traduzido = "ldc.r8 " + lexema.replaceAll(",",".");
